@@ -1,0 +1,68 @@
+<< group by >>
+: 그룹화 데이터를 생성하여 정보를 조회할 때 사용한다.
+    ex) group by dept_code : 부서별로 헤쳐 모이세요.
+    ex) select dept_code from employee group by dept_code;
+
+
+<< having >>
+* Query 순서 : from -> where -> group by -> having -> select -> order by
+    - where : 그룹화 이전 데이터 전체에 대하여 적용될 조건 (from의 조건)
+    - having : 그룹화 된 데이터에 대하여 적용될 조건 (group by의 조건)
+* 주의사항
+1. where 절에서는 그룹함수를 사용할 수 없음.
+2. Query 실행순서 잘 봐두기 
+    =>where절이 group by절보다 먼저 실행되면, 
+      그룹(dept_code)에 대한 정보의 조건이 아니라 전체 행에 대한 조건이 실행되기 때문에 에러뜸
+
+
+<< join >>
+: 한개 이상의 테이블을 병합해 유의미한 데이터셋을 만들어내는 문법 (이중 for문)
+    => from에 속해있는 문법! ( join 이후에 where이 나와야 함 )
+
+* cross join : join의 동작 원리를 이해하기 쉬운 join 종류 ( 실전 개발에서는 쓰임이 드뭄 )
+    ex) select * from department cross join job; 
+
+* inner join : 여러 테이블 간에 특정 조건을 기반으로 병합하는 문법 ( null 미포함 ) 
+    - join의 defalut 값임
+    - on 뒤에는 조건이 붙음
+    ex) 사원명, 직급명을 출력하세요.
+        select
+            emp_name,
+            dept_title
+        from employee inner join department on dept_code = dept_id;
+        => employee 테이블 첫번째 행의 dept_code와 / department 테이블 첫번째 행의 dept_id의 값이 같다면  
+           emp_name과 dept_title을 출력
+        
+* outer join : 여러 테이블 간에 특정 조건을 기반으로 병합하는 문법 ( null 포함 )
+- left outer : join에 참여하는 테이블 중 문법 상 왼쪽에 존재하는 테이블의 값을 모두 출력하게 처리하는 문법
+- right outer : join에 참여하는 테이블 중 문법 상 오른쪽에 존재하는 테이블의 값을 모두 출력하게 처리하는 문법
+- full outer : 양쪽 테이블 모든 값을 출력하게 처리하는 문법
+
+
+<< self join >>
+: 한개의 테이블을 join 하는 문법 ( 특수한 경우에 간혹 사용됨 )
+    ex) employee 테이블의 사원번호, 사원명, 상사ID, 직속상사명
+        select
+            e1.emp_id As "사원번호",
+            e1.emp_name As "사원명",
+            e1.manager_id As "상사id",
+            e2.emp_name As "직속상사명"
+        from
+            employee e1 join employee e2 on e1.manager_id = e2.emp_id;
+
+
+<< 다중 join >>
+: 3개 이상의 여러 테이블의 Join
+    ex) select
+            emp_id As "사번",
+            emp_name As "사원명",
+            dept_title As "부서명",
+            job_name As "직급명"
+        from employee e
+        left join department d on e.dept_code = d.dept_id
+        join job j on e.job_code = j.job_code
+        order by 1;
+    => employee와 department의 join이 먼저 실행되고, / 여기서 나온 값들이 job과 join됨
+
+
+
