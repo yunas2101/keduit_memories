@@ -26,7 +26,7 @@ public class BakeryDAO {
 
 		Connection con = dbCon();
 		Statement stat = con.createStatement();
-		String sql = "insert into bakery values(cafe_seq.nextval, '" + dto.getName() + "' , dto.getPrice() ) ";
+		String sql = "insert into bakery values(cafe_seq.nextval, '" + dto.getName() + "' , " + dto.getPrice() + ") ";
 		int result = stat.executeUpdate(sql);
 
 		con.close();
