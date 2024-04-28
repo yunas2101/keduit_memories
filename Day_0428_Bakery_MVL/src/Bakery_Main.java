@@ -45,7 +45,12 @@ public class Bakery_Main {
 				int price = getValidNum();
 
 				BakeryDTO dto = new BakeryDTO(id, name, price);
-				dao.addBakery(dto);
+				try {
+					dao.addBakery(dto);
+					System.out.println("입력 성공 !");
+				} catch (Exception e) {
+					System.out.println("에러 발생 : " + e);
+				}
 
 			} else if (menu == 2) {
 				System.out.println("ID\t빵 이름\t가격");

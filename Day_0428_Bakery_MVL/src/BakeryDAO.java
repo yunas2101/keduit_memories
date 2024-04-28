@@ -1,4 +1,7 @@
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 
@@ -7,10 +10,32 @@ public class BakeryDAO {
 	/** 배열에 저장하는 용도 **/
 	ArrayList<BakeryDTO> bakeryList = new ArrayList<BakeryDTO>();
 
-	/** 사용자에게 받은 값 저장 **/
-	public void addBakery(BakeryDTO dto) {
-		bakeryList.add(dto);
+	/** DB에 연결 **/
+	public Connection dbCon() throws Exception {
+		String dbURL = "jdbc:oracle:thin:@localhost:1521:xe";
+		String dbID = "kedu";
+		String dbPW = "kedu";
+
+		Connection con = DriverManager.getConnection(dbURL, dbID, dbPW);
+
+		return con;
 	}
+
+	/** 사용자에게 받은 값을 "DB"에 저장 **/
+	public void addBakery(BakeryDTO dto) throws Exception {
+
+		Connection con = dbCon();
+		Statement stat = con.createStatement();
+		String sql = "insert into bakery values(cafe_seq.nextval, '" + dto.getName() + "' , dto.getPrice() ) ";
+		int result = stat.executeUpdate(sql);
+
+		con.close();
+	}
+
+//	/** 사용자에게 받은 값 저장 **/
+//	public void addBakery(BakeryDTO dto) {
+//		bakeryList.add(dto);
+//	}
 
 	/** 목록에 있는 빵 리스트 보여주기 **/
 	public ArrayList<BakeryDTO> getBakerys() {
@@ -20,6 +45,7 @@ public class BakeryDAO {
 	/** 사용자에게 name 받고, 목록에 이름 포함된게 있다면, 출력 **/
 	public ArrayList<BakeryDTO> searchBakery(String name) {
 		ArrayList<BakeryDTO> result = new ArrayList<BakeryDTO>();
+
 		for (BakeryDTO b : bakeryList) {
 			if (b.getName().contains(name)) {
 				result.add(b);
