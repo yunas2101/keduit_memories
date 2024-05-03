@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        *{box-sizing: border-box;}
+        div{border: 1px solid black;}
+        .container{
+            width: 500px;
+            height: 500px;
+        }
+        
+        .container>div{
+            display: flex;
+            height: 50%;
+        }
+        
+        .container .box1 .row1{
+            flex: 1;
+            display: flex;
+            background-color: pink;
+            justify-content: center; /* 주축 방향 정렬 */   
+            align-items: center; /* 교차축 방향 정렬 */
+       
+        }
+
+        .container .box1 .row2{
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            background-color: lightgrey;
+            justify-content: center; /* 주축방향이 y라서 수직 방향으로 중앙정렬됨*/
+        }
+        
+        .container .box2 .row3{
+            flex: 2;
+            background-color: beige;
+        }
+        .container .box2 .row4{
+            flex: 1;
+            background-color: aliceblue;
+        }
+        
+
+
+    </style>
+
+</head>
+<body>
+    <div class="container">
+
+        <div class="box1">
+            <div class="row1">Col1</div>
+            <div class="row2">Col2</div>
+        </div>
+        <div class="box2">
+            <div class="row3"></div>
+            <div class="row4"></div>
+        </div>
+
+    </div>
+
+
+</body>
+</html>
