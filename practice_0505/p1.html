@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{box-sizing: border-box;}
+        div{border: 1px solid black;}
+        .container{
+            width: 800px; 
+            height: 700px; 
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container .header{flex: 15; display: flex;}
+        .container .navi{flex: 7;}
+        .container .body{flex: 68; display: flex;}
+        .container .footer{flex: 10;}
+
+        .container .header .logo{flex: 18;}
+        .container .header .logo img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;}
+
+        .container .header .title{ /* 왜 여기에 aline, justify 줘야 사진이 가운데 정렬?*/
+            flex: 67; 
+            display: flex;  
+            align-items: center; 
+            justify-content: center;
+        }
+        /* .container .header .title>img{
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+        } */
+
+
+        .container .header .rsv{flex: 15;}
+
+
+
+        .container .navi ul{
+            display: flex;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            background-color: #534847;
+            
+        }
+        .container .navi ul li{
+            list-style: none;
+            flex: 2.5;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            color: #F0E5DE;
+            transition-duration: 0.5s;
+        }
+
+        .container .navi ul li:hover{
+            cursor: pointer;
+            background-color: #F0E5DE;
+            color: #534847;
+        }
+
+
+        .container .body .contents{flex: 6.8; display: flex; flex-direction: column;}
+        .container .body .contents .main_contents{
+            flex: 7; 
+            display: flex;
+            align-items: center; 
+            justify-content: center;
+        }
+        .container .body .contents .main_contents img{
+            width: 90%;
+            height: 90%;
+            /* align-items: center; 
+            justify-content: center; */
+            /* 여기에 있으면 왜 정렬 안돼? */
+        }
+
+        .container .body .contents .sub_contents{flex: 3; display: flex;}
+        .container .body .contents .sub_contents>div{
+            flex: 1; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        
+        }
+        .container .body .contents .sub_contents img{
+            width: 90%;
+            height: 90%;
+        }
+
+
+        .container .body .bodyside{flex: 3.2; display: flex; flex-direction: column;}
+        .container .body .bodyside .login{flex: 3.5; display: flex; flex-direction: column;}
+        .container .body .bodyside .login .loginTop{
+            flex: 2.3;
+            display: flex; /* 얘가 여기 적혀있어야 밑의 aline, justify 작성가능한건지? */
+            align-items: center; 
+            justify-content: center;
+            font-size: larger;
+            font-weight: bolder;
+        }
+        .container .body .bodyside .login .loginInput{flex: 5; display: flex; flex-direction: column;}
+        .container .body .bodyside .login .inputId{flex: 1;}
+        .container .body .bodyside .login .inputPw{flex: 1;}
+        .container .body .bodyside .login .loginInput input{width: 100%; height: 100%;}
+
+
+
+        .container .body .bodyside .login .loginButton{
+            flex: 2.7; 
+            display: flex;
+            align-items: center; 
+            justify-content: space-evenly;
+            
+        }
+        .container .body .bodyside .login button{
+            /* align-items: center;  */
+            /* justify-content: space-evenly; */ 
+            /* 왜 여기가 아닌데? */
+            height: 25px;
+            background-color: #F0E5DE;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .container .body .bodyside .login button:hover{
+            cursor: pointer;
+        }
+
+
+
+        .container .body .bodyside .email{flex: 6.5;}
+
+
+        
+
+    </style>
+
+
+</head>
+<body>
+    
+    <div class="container">
+        <div class="header">
+            <div class="logo"><img src="logo1.png"></div>
+            <div class="title"><img src="title.png"></div>
+            <div class="rsv"></div>
+        </div>
+        <div class="navi">
+            <ul>
+                <li>Home</li>
+                <li>About</li>
+                <li>Portfolio</li>
+                <li>Contact</li>
+            </ul>
+        </div>
+        <div class="body">
+            <div class="contents">
+                <div class="main_contents"><img src="https://picsum.photos/500/300?random=1"></div>
+                <div class="sub_contents">
+                    <div class="img1"><img src="https://picsum.photos/170/110?random=1"></div>
+                    <div class="img2"><img src="https://picsum.photos/170/110?random=2"></div>
+                    <div class="img3"><img src="https://picsum.photos/170/110?random=3"></div>
+                </div>
+            </div>
+            <div class="bodyside">
+                <div class="login">
+                    <div class="loginTop">Login Box</div>
+                    <div class="loginInput">
+                        <div class="inputId">
+                            <input type="text" placeholder=" ID 입력">
+                        </div>
+                        <div class="inputPw">
+                            <input type="password" placeholder=" PW 입력">
+                        </div>
+                    </div>
+                    <div class="loginButton">
+                        <button>로그인</button>
+                        <button>회원가입</button>
+                    </div>
+                </div>
+                <div class="email"></div>
+            </div>
+
+        </div>
+        <div class="footer"></div>
+
+    </div>
+
+
+
+
+</body>
+</html>
