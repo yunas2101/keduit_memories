@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <style>
+    div {
+      border: 1px solid black;
+    }
+    #div {
+      width: 200px;
+      height: 200px;
+    }
+  </style>
+
+  <body>
+    <input type="text" id="txt" />
+    <div id="div"></div>
+
+    <script>
+      // input에 값 넣고 button 없이 enter쳐서  div에 값 넣기
+      let txt = document.getElementById("txt");
+      let div = document.getElementById("div");
+
+      txt.onkeyup = function (e) {
+        console.log(e.key); // console 창에 입력된 키보드 값 출력
+        if (e.key == "Enter") { // 입력된 값이 Enter와 같다면
+          console.log(txt.value); // input창에 입력된 값이 console 창에 출력
+          div.innerHTML = txt.value; // input창에 입력된 값을 div에 넣어라
+        }
+        // input창이 눌려있을 때, esc 누르면 input 창 지워지게
+        // else if (e.key == "Escape") {
+        //   txt.value = "";
+        // }
+      };
+
+      // 어디에서든지 esc 누르면 input창 지워지게
+      document.onkeyup = function(e){
+        if (e.key == "Escape") {
+          txt.value = "";
+          div.innerHTML = "";
+        }
+      };
+
+    </script>
+  </body>
+</html>
