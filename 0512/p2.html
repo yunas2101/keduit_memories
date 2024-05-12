@@ -15,20 +15,24 @@
         <div id="box"></div>
     </fieldset>
 
-        <input type="frontTxt" placeholder="앞에 추가할 값">
+        <input type="text" id="frontTxt" placeholder="앞에 추가할 값">
         <button id="addFront">앞쪽에 추가</button>
         <button id="delFront">앞에서 삭제</button> <br>
 
         
-        <input type="backTxt" placeholder="뒤에 추가할 값">
+        <input type="text" id="backTxt" placeholder="뒤에 추가할 값">
         <button id="addBack">뒷쪽에 추가</button>
         <button id="delBack">뒤에서 삭제</button>
 
 
 
     <script>
-        let arr = ["Orange"];
+        let arr = ["Orange","Apple","Mango"];
         let fruitList = document.getElementById("box");
+
+        function refresh(){
+            return fruitList.innerHTML = arr;
+        };
 
         
         let frontTxt = document.getElementById("frontTxt");
@@ -39,8 +43,70 @@
         let addBack = document.getElementById("addBack");
         let delBack = document.getElementById("delBack");
         
-        
+        fruitList.innerHTML = arr;
 
+        // 앞쪽에 추가
+        addFront.addEventListener("click", function(){
+            if(frontTxt.value == ""){
+                alert("값을 입력하세요")
+            } else {
+                arr.unshift(frontTxt.value);
+                refresh();
+                frontTxt.value = "";
+            }
+        });
+
+        // 앞에서 삭제
+        delFront.addEventListener("click", function(){
+            if(fruitList.innerHTML != ""){
+                arr.shift();
+                refresh();
+            } else {
+                alert("데이터가 없습니다.");
+            }
+        });
+
+        // 뒷쪽에 추가
+        addBack.addEventListener("click", function(){
+            if(backTxt.value == ""){
+                alert("값을 입력하세요")
+            } else {
+                arr.push(backTxt.value);
+                refresh();
+                backTxt.value = "";
+            }
+        })
+
+        // 뒤에서 삭제
+        delBack.addEventListener("click", function(){
+            arr.pop();
+            refresh();
+        });
+
+
+        // Enter로 앞쪽에 추가, Escape로 앞에서 삭제
+        frontTxt.addEventListener("keyup",function(e){
+            if(e.key == "Enter"){
+                arr.unshift(frontTxt.value);
+                refresh();
+                frontTxt.value = "";
+            } else if (e.key == "Escape") {
+                arr.shift();
+                refresh();
+            }
+        });
+
+        // Enter로 뒷쪽에 추가, Escape로 뒤에서 삭제
+        backTxt.addEventListener("keyup", function(e){
+            if(e.key == "Enter"){
+                arr.push(backTxt.value);
+                refresh();
+                backTxt.value = "";
+            } else if(e.key == "Escape"){
+                arr.pop();
+                refresh();
+            }
+        });
 
 
     </script>
