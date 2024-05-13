@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  </head>
+
+  <style>
+    .container {
+      border: 1px solid black;
+      width: 300px;
+      height: 300px;
+      margin: auto;
+      overflow: auto;
+    }
+
+    .btn-form {
+      display: flex;
+      justify-content: center;
+    }
+    .btn-form > button {
+      margin: 10px;
+    }
+  </style>
+
+  <body>
+    <div class="container" id="box"></div>
+    <div class="btn-form">
+      <button id="addUp">위로 추가하기</button>
+      <button id="addDown">아래로 추가하기</button>
+    </div>
+
+    <script>
+      let count = 1;
+
+      $("#addUp").on("click", function () {
+        let txtPrepend = $("<div>");
+        txtPrepend.html("text : " + count++);
+        $("#box").prepend(txtPrepend);
+      });
+
+      $("#addDown").on("click", function () {
+        let txtAppend = $("<div>");
+        txtAppend.html("text : " + count++);
+        $("#box").append(txtAppend);
+      });
+    </script>
+  </body>
+</html>
