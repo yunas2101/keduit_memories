@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  </head>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    div {
+      border: 1px solid black;
+    }
+    .wrap {
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      width: 400px;
+      height: 500px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container .output_cont {
+      flex: 9;
+    }
+    .container .input_cont {
+      flex: 1.5;
+      display: flex;
+    }
+    .container .input_cont .send_txt {
+      flex: 8;
+    }
+    [contenteditable="true"]:empty:before {
+      content: attr(placeholder);
+    }
+    .container .input_cont button {
+      flex: 2;
+    }
+  </style>
+
+  <body>
+    <div class="wrap">
+      <div class="container">
+        <div class="output_cont"></div>
+        <div class="input_cont">
+          <div
+            class="send_txt"
+            contenteditable="true"
+            placeholder="메세지를 입력하세요"
+          ></div>
+          <button id="econ_btn">Econ</button>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    let wrap = $(".wrap");
+    let output_cont = $(".output_cont");
+    let input_cont = $(".input_cont");
+    let send_txt = $(".send_txt");
+    let econ_btn = $("#econ_btn");
+
+    send_txt.on("keydown", function (e) {
+      if (e.key == "Enter") {
+        console.log("aa");
+        if (send_txt.html() == "") {
+          console.log("dd");
+          return false;
+        }
+        let output_box = $("<div>");
+        output_box.addClass("output_box");
+        let chat = $("<div>");
+        chat.addClass("chat");
+        let chat_date = $("<div>");
+        chat_date.addClass("chat_date");
+        let date = new Date();
+        let hour = ("0" + date.getHours()).slice(-2);
+        let min = ("0" + date.getMinutes()).slice(-2);
+
+        chat.append(send_txt.html());
+        chat_date.append(hour + ":" + min);
+        output_box.append(chat, chat_date);
+        output_cont.append(output_box);
+
+        return false;
+      }
+    });
+
+    econ_btn.on("click", function () {
+      console.log("aa");
+    });
+  </script>
+</html>
