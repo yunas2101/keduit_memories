@@ -26,7 +26,6 @@
       flex-direction: column;
       padding: 5px;
       background-color: #f7e1da;
-      position: relative;
     }
 
     .container .output_cont {
@@ -87,14 +86,13 @@
     .container .econ_cont {
       border: 1px solid black;
       width: 388px; /* 이게 맞아? *** */
-      /* height: 200px; */
+      height: 200px;
       background-color: #80808094;
       position: absolute;
-      bottom: 15%;
+      bottom: 38%;
       display: flex;
       flex-direction: column;
-      display: none;
-      transition: height 0.5s ease;
+      /* display: none; */
     }
 
     .container .econ_cont .econ_top {
@@ -119,13 +117,13 @@
     .container .econ_cont .econ_box {
       flex: 5;
       display: flex;
-      height: 100%;
+      /* height: 100%; */
       /* overflow: hidden; */
     }
     .container .econ_cont .econ_box .econ_list {
       width: 100%;
       height: 100%;
-      overflow: hidden;
+      /* overflow: hidden; */
       display: flex;
       flex-wrap: wrap;
       align-content: flex-start;
@@ -209,8 +207,6 @@
 
     econ_btn.on("click", function () {
       console.log("aa");
-      let econ_box = $(".econ_box");
-      econ_box.slideToggle();
     });
   </script>
 </html>
