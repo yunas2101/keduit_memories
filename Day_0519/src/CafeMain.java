@@ -106,5 +106,6 @@ public class CafeMain {
 				System.out.println("관리자에게 문의하세요. admin@site.com");
 			}
 		}
+		
 	}
 }

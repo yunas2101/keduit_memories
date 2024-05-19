@@ -33,5 +33,4 @@ public class CafeDTO {
 		this.price = price;
 	}
 	
-
 }

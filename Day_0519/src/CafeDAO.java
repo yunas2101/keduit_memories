@@ -175,6 +175,5 @@ public class CafeDAO {
 			return result;
 		}
 	}
-	
 
 }
