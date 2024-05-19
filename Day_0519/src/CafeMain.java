@@ -94,7 +94,6 @@ public class CafeMain {
 						System.out.println("ID가 존재하지 않습니다.");
 					}
 					
-						
 				} else if (menu.equals("0")) {
 					System.out.println("종료합니다.");
 					System.exit(0);
