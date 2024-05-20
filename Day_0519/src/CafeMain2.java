@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class CafeMain {
+public class CafeMain2 {
 	public static void main(String[] args) {
 
 		Scanner sc = new Scanner(System.in);
-		CafeDAO dao = new CafeDAO();
+		CafeDAO2 dao = new CafeDAO2();
 
 		while (true) {
 			try {
@@ -84,12 +84,14 @@ public class CafeMain {
 						System.out.print("수정할 메뉴의 가격 : ");
 						int price = Integer.parseInt(sc.nextLine());
 						
-						int result = dao.updateMenu(id, name, price);
+						CafeDTO dto = new CafeDTO(id,name,price);
+						int result = dao.updateMenu(dto);
 						
 						
 						if(result>0) {
 							System.out.println("수정 성공!");
 						}
+						
 						
 					} else {
 						System.out.println("ID가 존재하지 않습니다.");

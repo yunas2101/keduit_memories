@@ -8,7 +8,7 @@ import javax.naming.spi.DirStateFactory.Result;
 
 import oracle.jdbc.proxy.annotation.Pre;
 
-public class CafeDAO {
+public class CafeDAO2 {
 
 	/**
 	 * DB연결
@@ -22,7 +22,6 @@ public class CafeDAO {
 		String dbPW = "kedu";
 
 		return DriverManager.getConnection(dbURL, dbID, dbPW);
-	
 	}
 
 	/**
@@ -161,16 +160,16 @@ public class CafeDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public int updateMenu (int id, String name, int price) throws Exception {
+	public int updateMenu (CafeDTO dto) throws Exception {
 		
 		String sql = "update cafe set name = ?, price = ? where id = ?";
 		
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql)){
 			
-			pstat.setString(1, name);
-			pstat.setInt(2, price);
-			pstat.setInt(3, id);
+			pstat.setString(1, dto.getName());
+			pstat.setInt(2, dto.getPrice());
+			pstat.setInt(3, dto.getId());
 			
 			int result = pstat.executeUpdate();
 			return result;
