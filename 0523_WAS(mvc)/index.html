@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Index</title>
+  </head>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    div {
+      border: 1px solid black;
+    }
+    .container {
+      width: 500px;
+      height: 200px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container .header {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container .body {
+      flex: 3;
+      display: flex;
+    }
+
+    .container .body .input,
+    .output {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+  <body>
+    <div class="wrap">
+      <div class="container">
+        <div class="header">Movie</div>
+        <div class="body">
+          <div class="input">
+            <button id="input_btn">toInput</button>
+          </div>
+          <div class="output">
+            <button id="output_btn">toOutput</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById("input_btn").onclick = function () {
+        location.href = "/inputForm.html";
+      };
+      document.getElementById("output_btn").onclick = function () {
+        location.href = "/OutputServlet";
+      };
+    </script>
+  </body>
+</html>
