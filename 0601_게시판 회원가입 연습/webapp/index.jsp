@@ -12,26 +12,50 @@ prefix="c"%>
   </head>
 
   <body>
-    <table border="1" align="center">
-      <tr>
-        <th colspan="2">Login Box</th>
-      </tr>
-      <tr>
-        <td>아이디</td>
-        <td><input type="text" placeholder="Input your ID" /></td>
-      </tr>
-      <tr>
-        <td>패스워드</td>
-        <td><input type="text" placeholder="Input your PW" /></td>
-      </tr>
-      <tr>
-        <td colspan="2" align="center">
-          <button>로그인</button>
-          <button type="button" id="signup">회원가입</button>
-        </td>
-      </tr>
-    </table>
-
+    <c:choose>
+      <c:when test="${loginID != null}">
+        <table border="1" align="center">
+          <tr>
+            <th>${loginID} 님 환영합니다.</th>
+          </tr>
+          <tr>
+            <td>
+              <button id="to_board">게시판으로</button>
+              <button id="mypage">내정보</button>
+              <button id="logout">로그아웃</button>
+              <button id="memberout">회원탈퇴</button>
+            </td>
+          </tr>
+        </table>
+      </c:when>
+      <c:otherwise>
+        <form action="/login.members" method="post">
+          <table border="1" align="center">
+            <tr>
+              <th colspan="2">Login Box</th>
+            </tr>
+            <tr>
+              <td>아이디</td>
+              <td>
+                <input type="text" placeholder="Input your ID" name="id" />
+              </td>
+            </tr>
+            <tr>
+              <td>패스워드</td>
+              <td>
+                <input type="text" placeholder="Input your PW" name="pw" />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" align="center">
+                <button type="submit">로그인</button>
+                <button type="button" id="signup">회원가입</button>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </c:otherwise>
+    </c:choose>
     <script>
       $("#signup").on("click", function () {
         location.href = "/members/signup.jsp";

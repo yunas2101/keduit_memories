@@ -76,6 +76,14 @@ prefix="c" %>
           <td>주소2</td>
           <td><input type="text" placeholder="주소2" id="add2"  name="add2"/></td>
         </tr>
+        <tr>
+            <td colspan="2" align="center">
+
+                		<button type="submit" id="join">회원가입</button>
+
+                <button type="button" id="back">돌아가기</button>
+            </td>
+        </tr>
       </table>
     </form>
 
@@ -122,6 +130,8 @@ prefix="c" %>
           $("#correct_id").css("color", "red");
           $("#idcheck").attr("disabled", true); // 버튼 비활성화 (장애입히겠다)
         }
+        
+        didIdCheck = false;
       });
 
       // 패스워드 재확인
@@ -134,25 +144,39 @@ prefix="c" %>
         if ($("#pw").val() == $("#repw").val()) {
           $("#correct_repw").html("일치합니다.");
           $("#correct_repw").css("color", "green");
-          //   idcheck.attr("disabled", false); // 버튼 활성화
+          idcheck.attr("disabled", false); // 버튼 활성화
         } else {
           $("#correct_repw").html("불일치합니다.");
           $("#correct_repw").css("color", "red");
-          //   idcheck.attr("disabled", true); // 버튼 비활성화 (장애입히겠다)
+          idcheck.attr("disabled", true); // 버튼 비활성화 (장애입히겠다)
         }
       });
+      
+      $("#back").on("click", function(){
+    	  	location.href = "/index.jsp";
+      });
 
-      $("#joinform").on("submit", function () {
-        if (!regexId.test($("#id").val())) {
+      $("#join").on("click", function () {
+        if (!regexId.test($("#id").val())) { 
           alert("ID를 먼저 입력해주세요.");
           return false;
+          
         } else if (didIdCheck == false) {
+        	  alert("ID 중복성 체크를 해주세요.");
+        	  return false;
+        	  
         } else if (!regexPw.test($("#pw").val())) {
           alert("PW를 먼저 입력해주세요.");
           return false;
+          
         } else if (!regexPw.test($("#repw").val())) {
           alert("PW 재확인을 해주세요.");
           return false;
+          
+        } else if ($("#pw").val() != $("#repw").val()){
+        	  alert("PW가 일치하지 않습니다.");
+        	  return false;
+        	  
         } else if (!regexName.test(name.val())) {
           alert("이름을 먼저 입력해주세요.");
           return false;

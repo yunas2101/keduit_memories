@@ -68,7 +68,7 @@ public class MembersDAO {
 	 */
 	public int insert(MembersDTO dto) throws Exception {
 		
-		String sql = "insert into members values(?,?,?,?,?,?,?,?)";
+		String sql = "insert into members values(?,?,?,?,?,?,?,?,sysdate)";
 		
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql)){
@@ -88,7 +88,21 @@ public class MembersDAO {
 		}
 	}
 	
-	
+	public boolean login(String id, String pw) throws Exception {
+		
+		String sql = "select * from members where id = ? and pw = ?";
+		
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql)){
+			
+			pstat.setString(1, id);
+			pstat.setString(2, pw);
+			
+			ResultSet rs = pstat.executeQuery();
+				
+			return rs.next();
+		}
+	}
 	
 	
 }
