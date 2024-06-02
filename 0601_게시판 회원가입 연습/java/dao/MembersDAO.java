@@ -88,6 +88,13 @@ public class MembersDAO {
 		}
 	}
 	
+	/**
+	 * 로그인
+	 * @param id
+	 * @param pw
+	 * @return
+	 * @throws Exception
+	 */
 	public boolean login(String id, String pw) throws Exception {
 		
 		String sql = "select * from members where id = ? and pw = ?";
@@ -104,5 +111,25 @@ public class MembersDAO {
 		}
 	}
 	
+	/**
+	 * 로그아웃
+	 * @param loginID
+	 * @return
+	 * @throws Exception
+	 */
+	public int delete(String loginID) throws Exception {
+		
+		String sql = "delete from members where id = ?";
+		
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql)) {
+			
+			pstat.setString(1, loginID);
+			
+			return pstat.executeUpdate();
+			
+		}
+		
+	}
 	
 }

@@ -58,11 +58,39 @@ public class MembersController extends HttpServlet {
 				
 				boolean result = dao.login(id, pw);
 				if(result) {
+					System.out.println("로그인 성공");
 					HttpSession session = request.getSession();
 					session.setAttribute("loginID", id);
+				} else {
+					System.out.println("실패");
 				}
 				
 				response.sendRedirect("/index.jsp");
+			
+				/* 로그아웃 */
+			} else if (cmd.equals("/logout.members")) {
+				request.getSession().invalidate();
+				response.sendRedirect("/index.jsp");
+			
+				/* 회원탈퇴 */
+			} else if (cmd.equals("/memberout.members")) {
+				
+				HttpSession session = request.getSession();
+				String loginID = (String) session.getAttribute("loginID");
+			
+				if(loginID != null) { // 로그인 된 사용자가 있을 경우
+					int result = dao.delete(loginID);
+					
+					if(result > 0) {
+						session.invalidate();
+						response.sendRedirect("/index.jsp");
+					} else {
+						response.sendRedirect("/error.jsp");
+					}
+				} else {
+					response.sendRedirect("/login.jsp");
+				}
+			
 			}
 			
 		} catch (Exception e) {
