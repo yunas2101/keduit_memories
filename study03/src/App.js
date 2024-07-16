@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // function App() {
 
@@ -127,33 +127,89 @@ import { useState } from 'react';
 
 
 function App() {
-  const [data, setData] = useState([
+  const [datas, setDatas] = useState([
     { seq: 1, writer: "tom", message: "Hello React" },
     { seq: 2, writer: "sara", message: "React State Practice" },
     { seq: 3, writer: "jack", message: "Object Array" }
   ]);
 
-  const [seq, setSeq] = useState(4);
-  const [writer, setWriter] = useState('');
-  const [message, setMessage] = useState('');
+  const [data, setData] = useState({ seq: 0, writer: '', message: '' });
 
-  const handleWriter = (e) => {
-    setWriter(e.target.value);
+  /* 추가 */
+  const handleChange = (e) => {
+    let { name, value } = e.target;
+    if (name === "seq") {
+      value = parseInt(value, 10);
+      if (isNaN(value)) {
+        value = 0;
+      }
+    }
+    setData(prev => ({ ...prev, [name]: value }));
   }
-  const handleMessage = (e) => {
-    setMessage(e.target.value);
+  const handleInputBtn = () => {
+    setDatas(prev => [...prev, data]);
+
+    setData({ seq: 0, writer: '', message: '' });
+
   }
 
-
-  const handleInput = () => {
-    const obj = { seq, writer, message };
-
-    setData(prev => [...prev, obj]);
-
-    setSeq(seq + 1);
-    setWriter("");
-    setMessage("");
+  /* 삭제 */
+  const [delSeq, setDelSeq] = useState(0);
+  const handleDelSeq = (e) => {
+    setDelSeq(parseInt(e.target.value));
   }
+  const handleDeleteBtn = (e) => {
+    const del = datas.filter((data) => data.seq != delSeq);
+    setDatas(del); // delSeq 가 삭제된 목록 세팅
+    setDelSeq(0);
+  }
+
+  /* 수정 */
+  const [update, setUpdate] = useState({ seq: 0, writer: '', message: '' });
+  const handleUpdate = (e) => {
+    let { name, value } = e.target;
+    if (name === "seq") {
+      value = parseInt(value, 10);
+      if (isNaN(value)) {
+        value = 0;
+      }
+    }
+    setUpdate(prev => ({ ...prev, [name]: value }));
+  }
+  const handleUpdateBtn = () => {
+    setDatas(prev => prev.map(data => {
+      if (data.seq === update.seq) {
+        return { ...data, writer: update.writer, message: update.message };
+      }
+      return data;
+    }));
+    setUpdate({ seq: 0, writer: '', message: '' });
+  }
+
+  /* 검색 */
+  // const [search, setSearch] = useState('');
+  // const [list, setList] = useState([]);
+
+  // const handleSearch = (check) => (e) => {
+  //   if (check) {
+  //     setSearch(e.target.value);
+
+  //   }
+  //   const list = datas.map(({ seq, writer, message }, index) => {
+  //     if (message.includes(e.target.value)) {
+  //       return (
+  //         <tr key={index}>
+  //           <td>{seq}</td>
+  //           <td>{writer}</td>
+  //           <td>{message}</td>
+  //         </tr>);
+  //     }
+  //     else {
+  //       return '';
+  //     }
+  //   });
+  //   setList(list);
+  // }
 
   return (
     <div className='container'>
@@ -163,32 +219,56 @@ function App() {
           <th>작성자</th>
           <th>메세지</th>
         </tr>
-
         {
-          data.map((i, index) => {
+          datas.map((message, index) => {
             return (
               <tr key={index}>
-                <td>{i.seq}</td>
-                <td>{i.writer}</td>
-                <td>{i.message}</td>
-              </tr>
-            )
+                <td>{message.seq}</td>
+                <td>{message.writer}</td>
+                <td>{message.message}</td>
+              </tr>)
           })
         }
         <tr>
           <td colSpan={3}>
-            <input type='text' value={seq} placeholder='글번호'></input>
-            <input type='text' onChange={handleWriter} value={writer} placeholder='작성자'></input>
-            <input type='text' onChange={handleMessage} value={message} placeholder='내용'></input>
-            <button onClick={handleInput}>추가</button>
+            {
+              ["seq", "writer", "message"].map((item) => {
+                return (
+                  <input type='text' placeholder={item} name={item} onChange={handleChange} value={data[item] || ''}></input>
+                );
+              })
+            }
+            <button onClick={handleInputBtn}>추가</button>
+
+            {/* <input type='text' name="seq" onChange={handleChange} value={data.seq} placeholder='글번호'></input>
+            <input type='text' name='writer' onChange={handleChange} value={data.writer} placeholder='작성자'></input>
+            <input type='text' name='message' onChange={handleChange} value={data.message} placeholder='내용'></input>
+            <button onClick={handleInput}>추가</button> */}
+          </td>
+        </tr>
+        <tr>
+          <td colSpan={3}>
+            <input type='text' placeholder='input seq to delete' onChange={handleDelSeq} value={delSeq || ''}></input>
+            <button onClick={handleDeleteBtn}>삭제</button>
+          </td>
+        </tr>
+        <tr>
+          <td colSpan={3}>
+            <input type='text' name="seq" onChange={handleUpdate} value={update.seq || ''} placeholder='수정 대상의 seq'></input>
+            <input type='text' name='writer' onChange={handleUpdate} value={update.writer} placeholder='수정할 writer'></input>
+            <input type='text' name='message' onChange={handleUpdate} value={update.message} placeholder='수정할 message'></input>
+            <button onClick={handleUpdateBtn}>수정</button>
+          </td>
+        </tr>
+        <tr>
+          <td colSpan={3}>
+            <input type='text' name='message' onChange={handleSearch(true)} value={search} placeholder='내용검색'></input>
           </td>
         </tr>
       </table>
     </div>
   );
 }
-
-
 
 
 export default App;
