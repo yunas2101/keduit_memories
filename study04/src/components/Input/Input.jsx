@@ -1,22 +1,33 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./Input.module.css";
 
-const Input = ({ setPage, setMenus }) => {
+const Input = ({ setMenus, setSearch }) => {
+
+  const navi = useNavigate();
+
 
   const [menu, setMenu] = useState({ id: 0, name: "", price: 0 });
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    if (name == "id" || name == "price") {
+      value = parseInt(value)
+    }
+
     setMenu((prev) => {
-      return {
-        ...prev, [name]: value
-      }
+      return ({ ...prev, [name]: value })
     });
   };
 
   const handleAdd = () => {
-    setMenus(prev => [...prev, menu]);
-    setPage("/");
+    setMenus((prev) => {
+      setSearch([...prev, menu])
+      return [...prev, menu]
+    });
+    navi("/");
   };
+
 
   return (
     <div className={styles.input}>
@@ -36,7 +47,7 @@ const Input = ({ setPage, setMenus }) => {
       </div>
       <div className={styles.btns}>
         <button onClick={handleAdd}>추가</button>
-        <button onClick={() => { setPage("/"); }}>
+        <button onClick={() => { navi("/") }}>
           취소
         </button>
       </div>

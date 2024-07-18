@@ -5,9 +5,12 @@ import Index from './components/Index/Index.jsx';
 import Output from './components/Output/Output.jsx';
 import { useState } from 'react';
 
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+
+
 function App() {
 
-  const [page, setPage] = useState("/");
   const [menus, setMenus] = useState([
     { id: 1001, name: "Americano", price: 2000 },
     { id: 1002, name: "Cafe Latte", price: 3500 },
@@ -16,13 +19,19 @@ function App() {
     { id: 1005, name: "Mango Juice", price: 6000 },
   ])
 
+  const [search, setSearch] = useState(menus);
+
   return (
     <div className={styles.container}>
-      <div className={styles.box}>
-        {page == "/" && <Index setPage={setPage} />}
-        {page == "input" && <Input setPage={setPage} setMenus={setMenus} />}
-        {page == "output" && <Output setPage={setPage} menus={menus} />}
-      </div>
+      <Router>
+        <div className={styles.box}>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path='input' element={<Input setMenus={setMenus} setSearch={setSearch} />} />
+            <Route path='output' element={<Output setMenus={setMenus} menus={menus} search={search} setSearch={setSearch} />} />
+          </Routes>
+        </div>
+      </Router>
     </div>
   );
 }
