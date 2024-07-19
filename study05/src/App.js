@@ -25,16 +25,18 @@ const AppContent = () => {
       </div>
       <div className='body'>
         <div className='sidemenu'>
-          <div className='menu' onClick={() => { navi("menu1") }}>회원관리</div>
-          <div className='menu' onClick={() => { navi("menu2") }}>게시물관리</div>
-          <div className='menu' onClick={() => { navi("menu3") }}>광고관리</div>
+          <div className='menu' onClick={() => { navi("menu1") }}>메인</div>
+          <div className='menu' onClick={() => { navi("menu2") }}>회원관리</div>
+          <div className='menu' onClick={() => { navi("menu3") }}>카페 메뉴 관리</div>
+          <div className='menu' onClick={() => { navi("menu4") }}>게시글 관리</div>
         </div>
         <div className='content'>
           <Routes>
-            <Route path="/" element={<Content content="내용1" />} />
-            <Route path="/menu1/*" element={<Content content="내용1" />} />
-            <Route path="/menu2/*" element={<Content content="내용2" />} />
-            <Route path="/menu3/*" element={<Content content="내용3" />} />
+            <Route path="/" element={<Content />} />
+            <Route path="/menu1/*" element={<Content />} />
+            <Route path="/menu2/*" element={<Content />} />
+            <Route path="/menu3/*" element={<Content />} />
+            <Route path="/menu4/*" element={<Content />} />
           </Routes>
         </div>
       </div>

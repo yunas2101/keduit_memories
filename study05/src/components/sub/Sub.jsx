@@ -1,11 +1,15 @@
-import styles from "./Sub.module.css"
+import styles from "./Sub.module.css";
 
-const Sub = ({ content }) => {
+const Sub = ({ content, datas, setDatas }) => {
+
+    // console.log(datas);
+
     return (
         <div className={styles.container}>
-            {content}
+
+
         </div>
-    )
+    );
 };
 
 export default Sub;

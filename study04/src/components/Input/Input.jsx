@@ -9,7 +9,7 @@ const Input = ({ setMenus, setSearch }) => {
 
   const [menu, setMenu] = useState({ id: 0, name: "", price: 0 });
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    let { name, value } = e.target;
 
     if (name == "id" || name == "price") {
       value = parseInt(value)
