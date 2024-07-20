@@ -8,7 +8,7 @@ const Add = ({ datas, setDatas }) => {
     const handleAdd = (e) => {
         let { name, value } = e.target;
 
-        if (name == "id") {
+        if (name === "id") {
             value = parseInt(value)
         }
 

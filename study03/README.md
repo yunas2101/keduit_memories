@@ -1,70 +1,363 @@
-# Getting Started with Create React App
+# React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- 모든 UI는 상태에서 파생된다. <br>
 
-## Available Scripts
+## 메신저 기능
 
-In the project directory, you can run:
+입력, 출력, 수정, 삭제, 검색
 
-### `npm start`
+### 코드 축약 방식
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+    <input type='text' name="seq" onChange={handleChange} value={data.seq} placeholder='글번호'></input>
+    <input type='text' name='writer' onChange={handleChange} value={data.writer} placeholder='작성자'></input>
+    <input type='text' name='message' onChange={handleChange} value={data.message} placeholder='내용'></input>
+    <button onClick={handleInput}>추가</button>
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+    {["seq", "writer", "message"].map((item) => {
+    return (
+        <input
+        type="text"
+        placeholder={item}
+        name={item}
+        onChange={handleChange}
+        value={data[item] || ""}
+        />
+    );
+    })}
+    <button onClick={handleInputBtn}>추가</button>
+```
 
-### `npm test`
+### 기존 내코드
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+function App() {
+  const [datas, setDatas] = useState([
+    { seq: 1, writer: "tom", message: "Hello React" },
+    { seq: 2, writer: "sara", message: "React State Practice" },
+    { seq: 3, writer: "jack", message: "Object Array" },
+  ]);
 
-### `npm run build`
+  const [data, setData] = useState({ seq: 0, writer: "", message: "" });
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  /* 추가 */
+  const handleChange = (e) => {
+    let { name, value } = e.target;
+    if (name === "seq") {
+      value = parseInt(value, 10);
+      if (isNaN(value)) {
+        value = 0;
+      }
+    }
+    setData((prev) => ({ ...prev, [name]: value }));
+  };
+  const handleInputBtn = () => {
+    setDatas((prev) => [...prev, data]);
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    setSearch((prev) => [...prev, data]);
+    setData({ seq: 0, writer: "", message: "" });
+  };
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  /* 삭제 */
+  const [delSeq, setDelSeq] = useState(0);
+  const handleDelSeq = (e) => {
+    setDelSeq(parseInt(e.target.value));
+  };
+  const handleDeleteBtn = (e) => {
+    const del = datas.filter((data) => data.seq != delSeq);
+    setDatas(del); // delSeq 가 삭제된 목록 세팅
+    setDelSeq(0);
+  };
 
-### `npm run eject`
+  /* 수정 */
+  const [update, setUpdate] = useState({ seq: 0, writer: "", message: "" });
+  const handleUpdate = (e) => {
+    let { name, value } = e.target;
+    if (name === "seq") {
+      value = parseInt(value, 10);
+      if (isNaN(value)) value = 0;
+    }
+    setUpdate((prev) => ({ ...prev, [name]: value }));
+  };
+  const handleUpdateBtn = () => {
+    setDatas((prev) =>
+      prev.map((data) => {
+        if (parseInt(data.seq) === parseInt(update.seq)) {
+          return { ...data, writer: update.writer, message: update.message };
+        }
+        return data;
+      })
+    );
+    setUpdate({ seq: 0, writer: "", message: "" });
+  };
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+  /* 검색 */
+  const [search, setSearch] = useState(datas);
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  // 검색 기능 추가
+  const handleSearch = (e) => {
+    setSearch(datas);
+    // setDatas를 통해 Datas 값에서 검색 된 결과만 출력될 수 있도록 변경
+    // includes를 사용하여 검색어를 포함하고 있으면 출력
+    setSearch((prev) =>
+      prev.filter((data) => data.message.includes(e.target.value))
+    );
+  };
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+  return (
+    <div className="container">
+      <table className="messages">
+        <tbody>
+          <tr>
+            <th>글번호</th>
+            <th>작성자</th>
+            <th>메세지</th>
+          </tr>
+          {search.map((message, index) => {
+            return (
+              <tr key={index}>
+                <td>{message.seq}</td>
+                <td>{message.writer}</td>
+                <td>{message.message}</td>
+              </tr>
+            );
+          })}
+          <tr>
+            <td colSpan={3}>
+              {["seq", "writer", "message"].map((item) => {
+                return (
+                  <input
+                    type="text"
+                    placeholder={item}
+                    name={item}
+                    onChange={handleChange}
+                    value={data[item] || ""}
+                  />
+                );
+              })}
+              <button onClick={handleInputBtn}>추가</button>
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={3}>
+              <input
+                type="text"
+                placeholder="input seq to delete"
+                onChange={handleDelSeq}
+                value={delSeq || ""}
+              />
+              <button onClick={handleDeleteBtn}>삭제</button>
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={3}>
+              <input
+                type="text"
+                name="seq"
+                onChange={handleUpdate}
+                value={update.seq || ""}
+                placeholder="수정 대상의 seq"
+              />
+              <input
+                type="text"
+                name="writer"
+                onChange={handleUpdate}
+                value={update.writer}
+                placeholder="수정할 writer"
+              />
+              <input
+                type="text"
+                name="message"
+                onChange={handleUpdate}
+                value={update.message}
+                placeholder="수정할 message"
+              />
+              <button onClick={handleUpdateBtn}>수정</button>
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={3}>
+              <input
+                type="text"
+                name="message"
+                placeholder="내용검색"
+                onChange={handleSearch}
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+}
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+export default App;
+```
 
-## Learn More
+## 강사풀이
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+function App() {
+  const [datas, setDatas] = useState([
+    { seq: 1, writer: "tom", message: "Hello React" },
+    { seq: 2, writer: "sara", message: "React State Practice" },
+    { seq: 3, writer: "jack", message: "Object Array" },
+  ]);
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+  const [data, setData] = useState({ seq: 0, writer: "", message: "" });
 
-### Code Splitting
+  /* 추가 */
+  const handleChange = (e) => {
+    let { name, value } = e.target;
+    if (name === "seq") {
+      value = parseInt(value, 10);
+      if (isNaN(value)) {
+        value = 0;
+      }
+    }
+    setData((prev) => ({ ...prev, [name]: value }));
+  };
+  const handleInputBtn = () => {
+    setDatas((prev) => {
+      const updated = [...prev, data];
+      setFiltered(updated);
+      return updated;
+    });
+    setData({ seq: 0, writer: "", message: "" });
+  };
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+  /* 삭제 */
+  const [delSeq, setDelSeq] = useState(0);
+  const handleDelSeq = (e) => {
+    setDelSeq(parseInt(e.target.value));
+  };
+  const handleDeleteBtn = (e) => {
+    setDatas(() => {
+      const result = datas.filter((data) => data.seq != delSeq);
+      setFiltered(result);
+      return result;
+    });
+    setDelSeq(0);
+  };
 
-### Analyzing the Bundle Size
+  /* 수정 */
+  const [update, setUpdate] = useState({ seq: 0, writer: "", message: "" });
+  const handleUpdate = (e) => {
+    let { name, value } = e.target;
+    setUpdate((prev) => ({ ...prev, [name]: value }));
+  };
+  const handleUpdateBtn = () => {
+    const updated = datas.map((data) => {
+      if (parseInt(data.seq) === parseInt(update.seq)) {
+        return update;
+      }
+      return data;
+    });
+    setDatas(() => {
+      setFiltered(updated);
+      return updated;
+    });
+    setUpdate({ seq: 0, writer: "", message: "" });
+  };
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+  /* 검색 */
+  const [filtered, setFiltered] = useState(datas);
 
-### Making a Progressive Web App
+  const handleSearch = (e) => {
+    const keyword = e.target.value;
+    const result = datas.filter((data) => data.message.includes(keyword));
+    setFiltered(result);
+  };
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+  return (
+    <div className="container">
+      <table className="messages">
+        <tbody>
+          <tr>
+            <th>글번호</th>
+            <th>작성자</th>
+            <th>메세지</th>
+          </tr>
+          {filtered.map((message, index) => {
+            return (
+              <tr key={index}>
+                <td>{message.seq}</td>
+                <td>{message.writer}</td>
+                <td>{message.message}</td>
+              </tr>
+            );
+          })}
+          <tr>
+            <td colSpan={3}>
+              {["seq", "writer", "message"].map((item) => {
+                return (
+                  <input
+                    type="text"
+                    placeholder={item}
+                    name={item}
+                    onChange={handleChange}
+                    value={data[item] || ""}
+                  />
+                );
+              })}
+              <button onClick={handleInputBtn}>추가</button>
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={3}>
+              <input
+                type="text"
+                placeholder="input seq to delete"
+                onChange={handleDelSeq}
+                value={delSeq || ""}
+              />
+              <button onClick={handleDeleteBtn}>삭제</button>
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={3}>
+              <input
+                type="text"
+                name="seq"
+                onChange={handleUpdate}
+                value={update.seq || ""}
+                placeholder="수정 대상의 seq"
+              />
+              <input
+                type="text"
+                name="writer"
+                onChange={handleUpdate}
+                value={update.writer}
+                placeholder="수정할 writer"
+              />
+              <input
+                type="text"
+                name="message"
+                onChange={handleUpdate}
+                value={update.message}
+                placeholder="수정할 message"
+              />
+              <button onClick={handleUpdateBtn}>수정</button>
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={3}>
+              <input
+                type="text"
+                name="message"
+                placeholder="내용검색"
+                onChange={handleSearch}
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+}
 
-### Advanced Configuration
+export default App;
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```

@@ -1,26 +1,50 @@
+import { useNavigate } from "react-router-dom";
+import { useCafeStore, useMemberStore } from "../../../../store/store";
 import styles from "./List.module.css";
 
-export const List = ({ datas }) => {
+export const List = ({ type }) => {
+
+    const navi = useNavigate();
+
+    const { membersKey, members } = useMemberStore();
+    const { cafeKey, cafe } = useCafeStore();
+
+    let datas = {};
+
+    if (type == "member") {
+        datas = { data: members, key: membersKey };
+
+    } else if (type == "cafe") {
+        datas = { data: cafe, key: cafeKey };
+    }
+    const { data, key } = datas;
+
     return (
         <div className={styles.container}>
             <table border={1}>
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>name</th>
-                        <th>email</th>
-                        <th>role</th>
+                        {
+                            key.map((item, i) => {
+                                return (
+                                    <td key={i}>{item}</td>
+                                )
+                            })
+                        }
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        datas.map((item, i) => {
+                        data.map((item, i) => {
                             return (
                                 <tr key={i}>
-                                    <td>{item.id}</td>
-                                    <td>{item.name}</td>
-                                    <td>{item.email}</td>
-                                    <td>{item.role}</td>
+                                    {
+                                        key.map((index, i) => {
+                                            return (
+                                                <td key={i}>{item[index]}</td>
+                                            )
+                                        })
+                                    }
                                 </tr>
                             )
                         })
