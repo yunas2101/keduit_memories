@@ -76,17 +76,45 @@ function App() {
     setSearchTitle(e.target.value)
   }
   const handleSearch = () => {
-
-    // if (searchTitle == null) {
-    //   alert("검색할 제목을 입력하세요.")
-    //   return;
-    // }
-
     axios.get(`http://192.168.1.15/music`, { params: { title: searchTitle } }).then(resp => {
       setMusics(resp.data);
     })
   }
 
+  // ==========================[ 파일 ]==========================
+  // const [text, setText] = useState("");
+  // const [files, setFiles] = useState([]);
+
+  // const handleTextChange = (e) => {
+  //   setText(e.target.value);
+  // }
+
+  // const handleFileChange = (e) => {
+  //   setFiles([...e.target.files]);
+  // }
+
+  // const handleSubmit = () => {
+  //   const formData = new FormData(); // <-- Query Parametor 형식으로 전송됨
+  //   formData.append('text', text); // 왼쪽 : name,
+
+  //   files.forEach((file) => {
+  //     formData.append('files', file); // 사용자가 multiple에서 여러개의 파일을 고르면 같은 이름으로 추가하는 것
+  //   })
+
+  //   axios.post(`http://192.168.1.15/files`, formData); // multipart/form-data
+  // }
+
+
+  const [publish, setPublish] = useState('');
+  const handleDate = (e) => {
+    console.log(e.target.value);
+    setPublish({ publish: e.target.value });
+
+  }
+
+  const handleSubmit = () => {
+    axios.post(`http://192.168.1.15/files`, publish)
+  }
 
 
   return (
@@ -137,6 +165,13 @@ function App() {
       <div>
         <input type='text' placeholder='Title' name='title' onChange={handleTitleChange} value={searchTitle}></input>
         <button onClick={handleSearch}>검색</button>
+      </div>
+      <hr></hr>
+      <div>
+        {/* <input type='text' onChange={handleTextChange} />
+        <input type='file' onChange={handleFileChange} /> */}
+        <input type='date' onChange={handleDate} />
+        <button onClick={handleSubmit}>전송</button>
       </div>
     </div>
   );

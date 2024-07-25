@@ -60,7 +60,6 @@ export const Index = ({ setMyInfo }) => {
     }
 
 
-
     return (
 
         <>
@@ -76,8 +75,7 @@ export const Index = ({ setMyInfo }) => {
                     </thead>
                     <tbody>
                         <tr>
-                            <td><button>임시버튼</button></td>
-                            {/* <td><button onClick={() => { navi("/member/mypage") }}>마이페이지</button></td> */}
+                            <td><button onClick={() => { navi("/member/message") }}>채팅</button></td>
                             <td><button onClick={handleMypage}>마이페이지</button></td>
                             <td><button onClick={handleLogout}>로그아웃</button></td>
                             <td><button onClick={handleSignout}>회원탈퇴</button></td>

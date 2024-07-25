@@ -9,6 +9,7 @@ import { Loading } from './commons/Loading/Loading';
 import { useState } from 'react';
 import { Mypage } from './components/Mypage/Mypage';
 import axios from 'axios';
+import { Message } from './components/Message/Message';
 
 axios.defaults.withCredentials = true;
 // axios가 요청을 보낼 때 쿠키값을 포함해서 전송하는 설정
@@ -42,6 +43,7 @@ function App() {
             <Route path='/' element={<Index setMyInfo={setMyInfo} />} />
             <Route path='/member/signup' element={<Signup />} />
             <Route path='/member/mypage' element={<Mypage myInfo={myInfo} />} />
+            <Route path='/member/message' element={<Message />} />
           </Routes>
         </Router>
       </div>

@@ -5,5 +5,4 @@ export const useAuthStore = create((set) => ({
 
     loginID: '',
     setLoginID: (param) => set({ loginID: param }),
-
 }));
