@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Basic3</title>
+  </head>
+  <body>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      .container div {
+        border: 1px solid black;
+      }
+
+      .container {
+        width: 500px;
+        height: 150px;
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+      }
+
+      .container .index_box {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container .bottom_boxes {
+        flex: 3;
+        display: flex;
+      }
+      .container .bottom_boxes .input_box,
+      .output_box {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+
+    <div class="wrap">
+      <div class="container">
+        <div class="index_box">Index</div>
+        <div class="bottom_boxes">
+          <div class="input_box">
+            <button id="input_btn" name="input_btn">toInput</button>
+          </div>
+          <div class="output_box">
+            <button id="output_btn" name="output_btn">toOutput</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let input_btn = document.getElementById("input_btn");
+      let output_btn = document.getElementById("output_btn");
+
+      document.getElementById("input_btn").onclick = function () {
+        location.href = "/inputform.html";
+      };
+    </script>
+  </body>
+</html>

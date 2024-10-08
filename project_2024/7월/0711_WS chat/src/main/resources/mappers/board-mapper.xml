@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+	<!-- 글 쓴 목록 출력 -->
+	<select id="selectAll" resultType="com.kedu.dto.BoardDTO">
+		select a.* from (SELECT  board.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM board)a where rown between #{start} and #{end}
+	</select>
+
+	<!-- DB에 작성글 넣어주고, 게시판 seq값 반환 (Files의 parent_seq) -->
+	<insert id="insert">
+		insert into board values(board_seq.nextval, #{title}, #{contents}, #{writer}, sysdate, 0)
+		<selectKey resultType="int" order="AFTER" keyProperty="seq">
+			select board_seq.currval from dual
+		</selectKey>
+	</insert>
+
+	<!-- title로 선택된 게시글 상세보기 -->
+	<select id="selectBoard" resultType="com.kedu.dto.BoardDTO">
+		select * from board where seq = #{seq}
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="updateViewCount">
+		update board set view_count = view_count +1 where seq = #{seq}
+	</update>
+	
+	<!-- 조회수 증가 -->
+	<update id="updateBoard">
+		update board set title =#{title}, contents =#{contents} where seq =#{seq}
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="deleteBoard">
+		delete from board where seq = #{seq}
+	</delete>
+	
+	<!-- 검색 -->
+	<select id="search" resultType="com.kedu.dto.BoardDTO">
+		select * from board
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="writer != ''">
+				writer like '%'||#{writer}||'%'
+			</if>
+			<if test="title != ''">
+				and title like '%'||#{title}||'%'
+			</if>
+		</trim>
+	</select>
+	
+	<!-- 게시글 총 갯수 (페이징 사용) -->
+	<select id="getBoardCount" resultType="int">
+		select count(*) from board
+	</select>
+	
+	
+	
+</mapper>
