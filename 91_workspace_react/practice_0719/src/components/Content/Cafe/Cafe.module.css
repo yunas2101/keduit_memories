@@ -1,0 +1,38 @@
+.container {
+  border: 1px solid black;
+  flex: 4;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tabs {
+  flex: 1;
+  display: flex;
+}
+.tab {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.tab:hover {
+  color: #f69d95;
+  font-weight: 800;
+}
+
+.content {
+  flex: 6;
+  padding: 10px;
+}
+
+.container .content table {
+  width: 100%;
+}
+th,
+tr,
+td {
+  height: 35px;
+  text-align: center;
+}
