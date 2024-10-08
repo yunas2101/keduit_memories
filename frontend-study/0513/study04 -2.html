@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  </head>
+
+  <style>
+    .container{
+      width: 300px;
+      height: 400px;
+      border: 1px solid black;
+      overflow: auto;
+    }
+
+    table{
+      width: 100%;
+      text-align: center;
+    }
+
+  </style>
+
+  <body>
+    <div class="container" id="box">
+      제목 : <input type="text" id="title"><br>
+      내용 : <input type="text" id="content"><br>
+      작성자 : <input type="text" id="writer"> <br>
+      <button id="addBtn">테이블에 추가</button>
+
+      <table border="1">
+        <thead>
+          <tr>
+            <th>제목</th>
+            <th>내용</th>
+            <th>작성자</th>
+            <th>X</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <script>
+
+      $("#addBtn").on("click", function(){
+        let title = $("#title").val();
+        let content = $("#content").val();
+        let writer = $("#writer").val();
+
+      //   if(title == ""){
+      //   alert("값을 입력하세요.")
+      //   return;
+      // } 
+      
+      // if(content == ""){
+      //   alert("값을 입력하세요.")
+      //   return;
+      // } 
+      
+      // if(writer == ""){
+      //   alert("값을 입력하세요.")
+      //   return;
+      // } 
+  
+        let tr = $("<tr>");
+        
+        let tdTitle = $("<td>" + title + "</td>");
+        let tdContent = $("<td>" + content + "</td>");
+        let tdWriter = $("<td>" + writer + "</td>");
+        let delBtn = $("<td><button>X</button></td>");
+  
+        tr.append(tdTitle, tdContent, tdWriter, delBtn);
+        $("#box table tbody").append(tr);
+
+        $("#title").val("");
+        $("#content").val("");
+        $("#writer").val("");
+
+      });
+
+    </script>
+  </body>
+</html>

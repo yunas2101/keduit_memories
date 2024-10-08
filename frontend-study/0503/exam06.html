@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+        *{box-sizing: border-box;}
+
+
+      div {
+        border: 1px solid black;
+        width: 100px;
+        height: 100px;
+        background-color: pink;
+      }
+
+
+/* 자손 선택자 / 후손 선택자 */
+/* 자손 선택자 : > */
+/* 후손 선택자 :   (띄어쓰기) */
+
+      #box>div {
+        background-color: blanchedalmond;
+      }
+
+    </style>
+</head>
+ <body>
+    <div>DIV1</div>
+    <div>DIV2</div>
+
+    <div id="box">
+        <div>
+            <div>DIV5</div>
+            <div>DIV6</div>
+        </div>
+        <div>????????</div>
+        <div>DIV7</div>
+    </div>
+
+
+</body>
+</html>

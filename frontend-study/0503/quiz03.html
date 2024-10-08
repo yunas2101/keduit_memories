@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{box-sizing: border-box;}
+        div{border: 1px solid black;}
+        .container{
+            width: 800px;
+            height: 700px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container .header{flex: 15; display: flex;}
+        .container .navi{
+            flex: 7; 
+            display: flex; 
+            text-align: center; 
+            line-height: 40px;
+            
+        }
+        .container .body{flex: 68; display: flex;}
+        .container .footer{flex: 10;}
+
+        .container .header .logo{flex: 18;}
+        .container .header .title{flex: 67;}
+        .container .header .rsv{flex: 15;}
+
+        .container .navi .home{flex: 25;}
+        .container .navi .about{flex: 25;}
+        .container .navi .portfolio{flex: 25;}
+        .container .navi .contact{flex: 25;}
+
+        .container .body .contents{flex: 68;}
+        .container .body .bodyside{flex: 32; display: flex; flex-direction: column;}
+
+        .container .body .bodyside .login{flex: 35;}
+        .container .body .bodyside .email{flex: 65;}
+
+
+
+    </style>
+
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">logo</div>
+            <div class="title">Title</div>
+            <div class="rsv">rsv</div>
+        </div>
+        <div class="navi">
+            <div class="home">Home</div>
+            <div class="about">About</div>
+            <div class="portfolio">Portfolio</div>
+            <div class="contact">Contact</div>
+        </div>
+        <div class="body">
+            <div class="contents"></div>
+            <div class="bodyside">
+                <div class="login">Login</div>
+                <div class="email">Email</div>
+            </div>
+        </div>
+        <div class="footer">Footer</div>
+
+    </div>
+
+
+    
+</body>
+</html>

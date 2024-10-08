@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+
+    <script>
+      let rows = prompt("행 입력");
+      let cols = prompt("열 입력");
+      let count = 1;
+
+      document.write("<table border =1>");
+      for (let j = 0; j < rows; j++) {
+        document.write("<tr>");
+
+        for (let i = 0; i < cols; i++) {
+          document.write("<td>" + count++);
+        }
+        document.write("</tr>");
+
+      }
+      document.write("</table>");
+
+    </script>
+  </body>
+</html>

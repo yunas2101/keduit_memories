@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+      * {box-sizing: border-box;}
+      /* div {border: 1px solid black;} */
+
+      .container {
+        padding: 0px;
+      }
+      
+      .title_img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding-top: 15px;
+        padding-right: 10px;
+        padding-left: 10px;
+      }
+      
+      .title_img:hover{
+        cursor: pointer;
+      }
+      
+      .top_element{
+        text-align: center;
+        font-weight: bold;
+        padding-top: 15px;
+      }
+      
+      .top_element:hover{
+        cursor: pointer;
+      }
+      
+      
+      .navi_main{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+      
+      .navi_main>div{
+        height: 40px;
+        font-weight: 600;
+        font-size: medium;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #1a3167;
+        color: white;
+        transition-duration: 0.5s;
+      }
+      
+      .navi_main>div:hover {
+        cursor: pointer;
+        background-color: #3555a0;
+      }
+      
+      
+      .navi_side>div{
+        height: 40px;
+        display: flex;
+        align-items: center;
+        padding-left: 15px;
+        font-weight: 600;
+        background-color: #1a3167;
+        color: white;
+        
+      }
+      
+      .navi_side i:hover{
+        cursor: pointer;
+      }
+
+      .dropdown-item{
+        background-color: #1a3167;
+        color: white;
+      
+      }
+      
+      #search_icon{
+        display: flex;
+        justify-content: flex-end;
+        
+      }
+      
+      .body_img {
+        width: 100%;
+        height: 100%;
+      }
+      
+      #carouselExample1,#carouselExample2{
+        width:400px;
+        display: flex;
+      }
+      .card-title{
+        /* font-size: 2.3vw; */
+        font-weight: bold;
+      }
+      /* .card-next{
+        font-size: 2.3vw;        
+      } */
+
+      .footer {
+        /* height: 200px; */
+        background-color: #1a3167;
+        color: white;
+        font-size: small;
+        padding: 20px;
+      }
+      
+      .footer_img {
+        width: 200px;
+        height: 30px;
+        /* padding-left: 10px;
+        padding-top: 5px; */
+      }
+
+      .footer_info{
+        padding: 20px;
+      }
+      
+      .footer_img, .footer_info:hover{
+        cursor: pointer;
+      }
+    
+      .carousel-control-prev-icon,.carousel-control-next-icon  {
+        width: 20px;
+        height: 20px;
+        border-top: 2px solid #333;
+        border-right: 2px solid #333;
+        transform: rotate(225deg);
+        background-image: none;
+      }
+
+      .carousel-control-next-icon {
+        transform: rotate(45deg);
+      }
+      @media (max-width: 768px) {
+    .container, .container-md, .container-sm {
+        max-width: unset;
+        }
+      } 
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row header g-0">
+        <div class="col-12 col-md-6 col-lg-5">
+          <img class="title_img" src="title(pethroom).png" />
+        </div>
+        <div class="col-12 col-md-6 col-lg-7">
+          <div class="row top_element g-0">
+            <div class="col-md-2 d-none d-md-block"></div>
+            <div class="col-md-2 d-none d-md-block">login</div>
+            <div class="col-md-2 d-none d-md-block">join</div>
+            <div class="col-md-4 d-none d-md-block" style="color: #c53737;">membership</div>
+            <div class="col-md-2 d-none d-md-block">cart</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-0" style="height: 20px"></div>
+
+      <!-- navi -->
+      <div class="row navi_main g-0">
+        <div class="col-3 d-none d-md-flex">INSIDE PETHROOM</div>
+        <div class="col-3 d-none d-md-flex">PRODUCT</div>
+        <div class="col-3 d-none d-md-flex">EVENT</div>
+        <div class="col-3 d-none d-md-flex">CS CENTER</div>
+      </div>
+      <div class="row navi_side g-0">
+        <div class="col-6 d-md-none">
+          <div class="dropdown">
+            <a class="btn" style="background-color: #1a3167; color: white;" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-bars fa-2xl"></i>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li><a class="dropdown-item" href="#">INSIDE PETHROOM</a></li>
+              <li><a class="dropdown-item" href="#">PRODUCT</a></li>
+              <li><a class="dropdown-item" href="#">EVENT</a></li>
+              <li><a class="dropdown-item" href="#">CS CENTER</a></li>
+            </ul>
+          </div>
+
+        </div>
+        <div class="col-6 d-md-none" style="justify-content: flex-end;">
+          <i id="search_icon" class="fa-solid fa-magnifying-glass fa-xl" style="padding-right:10px;"></i>
+        </div>
+      </div>
+
+      <!-- body 욕실용품 -->
+      <div class="row body g-0">
+        <div class="col-12">
+          <img src="bathroom.png" class="body_img w-100" />
+        </div>
+        <div class="col">
+          <div class="container">
+            <div class="row g-0">
+              <!-- 1 -->
+              <div class="col-12 col-md-4 d-none d-md-block">
+                <div class="card" style="height: 100%;">
+                  <img src="논슬립 욕조.png" class="card-img-top p-3" />
+                  <div class="card-body">
+                    <h5 class="card-title text-center">논슬립 욕조</h5>
+                    <p class="card-text text-center">미끄럼 방지 기능이 있는<br />반려동물 전용 접이식 욕조</p>
+                    <a href="#" class="btn btn-outline-primary d-flex justify-content-center">Click</a>
+                  </div>
+                </div>
+              </div>
+              <!-- 2 -->
+              <div class="col-12 col-md-4 d-none d-md-block">
+                <div class="card" style="height: 100%;">
+                  <img src="릴렉스 샤워기.png" class="card-img-top p-3" />
+                  <div class="card-body">
+                    <h5 class="card-title text-center">릴렉스 샤워기 2.0</h5>
+                    <p class="card-text text-center">소음방지, 물 튀김 차단으로 <br />편안한 목욕 시간!</p>
+                    <a href="#" class="btn btn-outline-primary d-flex justify-content-center">Click</a>
+                  </div>
+                </div>
+              </div>
+              <!-- 3 -->
+              <div class="col-12 col-md-4 d-none d-md-block">
+                <div class="card" style="height: 100%;">
+                  <img src="펫 샤워 샴푸.png" class="card-img-top p-3" />
+                  <div class="card-body">
+                    <h5 class="card-title text-center">펫 샤워 샴푸</h5>
+                    <p class="card-text text-center">풍성한 초미세거품으로<br />목욕시간을 단축시키는 샴푸</p>
+                    <a href="#" class="btn btn-outline-primary d-flex justify-content-center">Click</a>
+                  </div>
+                </div>
+              </div>
+              <!-- 반응형 슬라이드 구간 -->
+              <div class="col d-flex justify-content-center pt-3">
+                <div id="carouselExample1" class="carousel slide d-md-none">
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <div class="card">
+                        <img src="논슬립 욕조.png" class="card-img-top p-3"/>
+                        <div class="card-body">
+                          <h5 class="card-title text-center">논슬립 욕조</h5>
+                          <p class="card-text text-center">
+                            미끄럼 방지 기능이 있는<br />반려동물 전용 접이식 욕조
+                          </p>
+                          <a href="#" class="btn btn-outline-primary d-flex justify-content-center">Click</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="carousel-item">
+                      <div class="card">
+                        <img src="릴렉스 샤워기.png" class="card-img-top p-3"/>
+                        <div class="card-body">
+                          <h5 class="card-title text-center">릴렉스 샤워기 2.0</h5>
+                          <p class="card-text text-center">소음 방지와 물 튀김 차단으로 <br />편안한 목욕 시간!</p>
+                          <a href="#" class="btn btn-outline-primary d-flex justify-content-center">Click</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="carousel-item">
+                      <div class="card">
+                        <img src="펫 샤워 샴푸.png" class="card-img-top p-3"/>
+                        <div class="card-body">
+                          <h5 class="card-title text-center">펫 샤워 샴푸</h5>
+                          <p class="card-text text-center">풍성하고 쫀쫀한 초미세거품으로<br />목욕시간을 단축시키는 샴푸</p>
+                          <a href="#" class="btn btn-outline-primary d-flex justify-content-center">Click</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample1" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample1" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+
+        <div class="row g-0" style="height: 20px"></div>
+        
+        <!-- body 산책용품 -->
+        <div class="col-12">
+          <img src="outside.png" class="body_img w-100" />
+        </div>
+        <div class="col">
+          <div class="container">
+            <div class="row g-0">
+              <!-- 1 -->
+              <div class="col-12 col-md-4 d-none d-md-block">
+                <div class="card" style="height: 100%;">
+                  <img src="이지 프리징 하네스 탑.png" class="card-img-top p-3" />
+                  <div class="card-body">
+                    <h5 class="card-title text-center">이지 프리징 하네스 탑</h5>
+                    <p class="card-text text-center">쉽고 빠르게 산책을 준비해주는 아이템</p>
+                    <a href="#" class="btn btn-outline-primary d-flex justify-content-center">Click</a>
+                  </div>
+                </div>
+              </div>
+              <!-- 2 -->
+              <div class="col-12 col-md-4 d-none d-md-block">
+                <div class="card" style="height: 100%;">
+                  <img src="버그아웃 라이트 클립 & 리필.png" class="card-img-top p-3" />
+                  <div class="card-body">
+                    <h5 class="card-title text-center">버그아웃 라이트 클립</h5>
+                    <p class="card-text text-center">벌레 기피 효과와 LED 기능을 하나로!</p>
+                    <a href="#" class="btn btn-outline-primary d-flex justify-content-center">Click</a>
+                  </div>
+                </div>
+              </div>
+              <!-- 3 -->
+              <div class="col-12 col-md-4 d-none d-md-block">
+                <div class="card" style="height: 100%;">
+                  <img src="컴포트 세트 2.0 (하네스+리쉬).png" class="card-img-top p-3" />
+                  <div class="card-body">
+                    <h5 class="card-title text-center">컴포트 세트 2.0</h5>
+                    <p class="card-text text-center">편안한 산책을 위한 필수 준비물 세트</p>
+                    <a href="#" class="btn btn-outline-primary d-flex justify-content-center">Click</a>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 반응형 슬라이드 구간 -->
+              <div class="col d-flex justify-content-center pt-3">
+                <div id="carouselExample2" class="carousel slide d-md-none">
+                  <!--  d-flex justify-content-center align-items-center X? -->
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <div class="card">
+                        <img src="이지 프리징 하네스 탑.png" class="card-img-top p-3" />
+                    <div class="card-body">
+                      <h5 class="card-title text-center">이지 프리징 하네스 탑</h5>
+                      <p class="card-text text-center">쉽고 빠르게 산책을 준비해주는 아이템</p>
+                      <a href="#" class="btn btn-outline-primary d-flex justify-content-center">Click</a>
+                    </div>
+                      </div>
+                    </div>
+                    <div class="carousel-item">
+                      <div class="card">
+                        <img src="버그아웃 라이트 클립 & 리필.png" class="card-img-top p-3" />
+                        <div class="card-body">
+                          <h5 class="card-title text-center">버그아웃 라이트 클립</h5>
+                          <p class="card-text text-center">벌레 기피 효과와 LED 기능을 하나로!</p>
+                          <a href="#" class="btn btn-outline-primary d-flex justify-content-center">Click</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="carousel-item">
+                      <div class="card">
+                        <img src="컴포트 세트 2.0 (하네스+리쉬).png" class="card-img-top p-3" />
+                        <div class="card-body">
+                          <h5 class="card-title text-center">컴포트 세트 2.0</h5>
+                          <p class="card-text text-center">편안한 산책 시간을 위한 필수 준비물 세트</p>
+                          <a href="#" class="btn btn-outline-primary d-flex justify-content-center">Click</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample2" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample2" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>  
+        </div>
+        <div class="row g-0" style="height: 20px"></div>
+      </div>
+
+      <!-- footer -->
+      <div class="row footer g-0 h-100">
+        <div class="row g-0">
+          <div class="col-12 col-md-6 col-lg-5"><img src="footerimg.png" class="footer_img"></div>
+        </div>
+        <div class="row footer_info g-0">
+          <div class="col-12 col-md-2 d-flex justify-content-center">이용약관</div>
+          <div class="col-12 col-md-2 d-flex justify-content-center">이용안내</div>
+          <div class="col-12 col-md-3 d-flex justify-content-center">개인정보처리방침</div>
+          <div class="col-12 col-md-3 d-flex justify-content-center">반품,환불규정</div>
+          <div class="col-12 col-md-2 d-flex justify-content-center">제휴입점문의</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
