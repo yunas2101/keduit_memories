@@ -1,0 +1,111 @@
+
+function : Java에서 Method 같은 역할
+크게 "단일행 함수 / 그룹 함수"로 나뉨
+
+<< 단일행 함수 >>
+: 한개의 행에 대하여 적용되는 함수
+
++) dual테이블 : 테스트 쿼리를 실행해보기 위한 더미데이터 테이블
+    => 특정 테이블을 정한 것이 아니라, 어떠한 기능을 테이블을 테스트해보고자 할 때 사용함.      
+    ex) select length ( ’afadsfefaefa’ ) from dual;
+
+* length : 컬럼값의 길이를 측정하는 함수
+* lengthb : 컬럼값의 byte 크기를 측정하는 함수 (한글은 한 글자 당 3byte)
+* instr : 문자열 내에서 특정 문자의 위치값을 검색하여 반환하는 함수
+    ex) select instr('Hello World Hi High', 'W', 1, 1) from dual;
+        => 'Hello World Hi High'에서 첫번째 글자(H)부터 검색을 시작하고, 첫번째로 나오는 'W'의 위치값
+* substr : 문자열 내에서 문자열을 추출하는 함수
+    ex) select substr('Hello World', 2, 6) from dual;
+* replace : 문자열 내에서 특정 문자열을 다른 문자열로 대체하는 함수
+    ex) select replace ('Hello World', 'World', 'Oracle') from dual;
+
+<숫자 관련 함수>
+* floor : 소숫점을 모두 버리는 함수 
+    ex) select floor(123.456) from dual; => 123
+* trunc : 소숫점 특정 자리에서 버리는 함수
+    ex) select trunc(127.556, 1) from dual; => 127.5
+* ceil : 소숫점을 잘라내면서 올리는 함수
+    ex) select ceil(123.456) from dual; => 124
+* round : 소숫점 특정 자리에서 반올림하는 함수
+    ex) select round(127.556, 1) from dual; => 127.6
+* abs : 절댓값 함수
+    ex) select abs(-50) from dual; => 50
+* mod : 나눗셈하고 나머지를 반환하는 함수
+    ex) select mod(10,3) from dual; => 1
+
+<날짜 관련 함수>
+* sysdate : 현재 시간 반환 - 연월일 시분초를 모두 포함한 timestamp로 반환
+* localtimestamp : 현재 시간 반환 - 초 이하의 값까지 반환
+* months_between(날짜1, 날짜2) : 두 날짜 사이의 개월 수 차이를 반환
+    ex) select emp_name, floor(months_between(sysdate, hire_date)) from employee;
+* add_months (날짜, 정수(개월수)) : 오늘(24.04.19) 기준으로 ‘월’에 덧셈
+    ex) select add_months(sysdate,2) from dual; => 24/06/19
+* next_day(날짜, 요일) : 날짜를 기준으로 가장 가까운 요일을 반환해주는 함수
+* last_day(날짜) : 해당 날짜가 속한 달의 마지막 날짜를 반환해주는 함수
+* extract : 날짜 데이터로부터 연/월/일을 추출하는 함수
+    ex) select sysdate from dual; => 24/04/19
+    ex) select extract(year from sysdate) from dual; => 2024
+        select extract(month from sysdate) from dual; => 4
+        select extract(day from sysdate) from dual; => 19
+
+<형 변환 함수>
+* to_char : 날짜 또는 숫자를 문자열로 변경
+
+// 날짜 -> 문자열
+ex) select to_char(sysdate, 'yyyy-mm-dd') from dual; => 2024-04-19
+ex) select to_char(sysdate, ' yyyy"년" mm"월" dd"일" ') from dual; => 2024년 04월 19일
+ex) select to_char(sysdate, 'yyyy"년"mm"월"dd"일" hh:mi:ss') from dual; => 2024년04월19일 11:40:41
+ex) select to_char(sysdate, 'yyyy"년" mm"월" dd"일"(day) hh:mi:ss') from dual; => 2024년 04월 19일(금요일) 11:42:00
+ex) select to_char(sysdate, 'yyyy"년" mm"월" dd"일"(dy) hh:mi:ss') from dual; => 2024년 04월 19일(금) 11:42:00
+
+// 숫자 -> 문자열
+ex) select to_char(123456789, '999,999,999') from dual; => 123,456,789
+    -> 첫번째 인자의 숫자보다 형식문자의 길이가 더 길어야 함
+ex) select to_char(123456789, '999,999,999.99') from dual; => 123,456,789.00 (소숫점도 만들어낼 수 있음)
+ex) select to_char(123456789, 'L999,999,999') from dual; => ￦123,456,789
+
+* to_date : 앞에 있는 문자열이 이러한 형식이니 잘 인식해라
+// 문자열 -> 날짜
+ex) select to_date('240419', 'yymmdd') from dual; => 24/04/19
+
+
+<< 그룹 함수 >>
+: 전체 행에 대하여 일괄 적용되는 함수
+=> 그룹함수 사용할 때는 그룹함수들끼리만 작성해야 함
+=> 그룹함수 옆에는 단일행 함수 사용 못함
+
+* sum : 컬럼값에 대한 합 도출
+    ex) 이 회사의 월 인건비는 총 얼마? 
+    => select sum(salary) from employee;
+* avg : 컬럼값 전체에 대한 평균
+    ex) 이 회사의 급여 평균은 얼마? => select avg(salary) from employee;
+* count : 행의 개수를 반환하는 함수 
+    => 데이터가 null 이 아닌 값만 count 한다. 
+* count(*) : 특정 컬럼에 null이 있고 없고를 따지지 않고, 그냥 전체 행 개수 반환
+
+
+<< 분기 함수 >>
+* decode(대상값, 1, '결과1', 2, '결과2', 3, '결과3', '결과4') -> 가변 인자값을 허용함
+    => 대상값이 (조건)1과 같다면 결과1을 리턴해라
+    => 1도 아니고 2도 아니고 3도아니면 4를 리턴해라
+    => Java의 switch문과 동일
+
+* case : decode 보다 더 복잡한 분기점을 구현할 때 사용
+    - end와 짝꿍 (try-catch 처럼)
+    - case and, case and, 이렇게 콤마 찍고 더 작성할 수 있음
+    - case와 and 사이에는 when이 들어가고 
+    - when 뒤에는 조건이 들어감
+    - else 뒤에는 조건 안들어가도 됨
+    ex) select
+            emp_name;
+            case
+                when substr(emp_no,8,1) in (1,3) then '남'
+                when substr(emp_no,8,1) in (2,4) then '여'
+                else '외계인'
+            end As "성별"
+        from employee;
+
+    => decode로 만든 걸 case로 만들 수 있지만, case로 만든 것을 decode로 만들 수는 없음
+    => case는 자바에서 if문과 동일
+
+
