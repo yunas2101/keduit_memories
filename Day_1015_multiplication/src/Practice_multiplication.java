@@ -5,7 +5,6 @@ public class Practice_multiplication {
 	public static void main(String[] args) {
 				
 		// 1~9단의 프로그램 / 3단 고르면 3단의 내용 나오게 / 1~9단 이외는 범위초과
-
 		Scanner sc = new Scanner(System.in);
 
 		while (true) {
