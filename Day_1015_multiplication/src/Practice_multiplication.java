@@ -26,6 +26,7 @@ public class Practice_multiplication {
 		}
 				
 	}
+	
 
 }
 
