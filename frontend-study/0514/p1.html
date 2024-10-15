@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  </head>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    div {
+      border: 1px solid black;
+    }
+
+    .container {
+      width: 700px;
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      margin: auto;
+    }
+
+    .writer {
+      flex: 1;
+      background-color: #ffd9d8;
+    }
+    .content_form {
+      flex: 6;
+      display: flex;
+    }
+
+    #content,
+    .content {
+      flex: 8;
+      background-color: aliceblue;
+      /* overflow: auto; */
+    }
+
+    #replyBtn {
+      flex: 2;
+    }
+
+    #reply_form {
+      display: flex;
+      flex-direction: column;
+      margin: auto;
+    }
+
+    .reply {
+      width: 700px;
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      margin: 5px auto; /* x축, y축 (세로로 5px 간격 / 가로는 auto) */
+    }
+
+    .btn_box {
+      flex: 2;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+  </style>
+
+  <body>
+    <div class="container">
+      <div class="writer" id="writer" contenteditable="true"></div>
+      <div class="content_form">
+        <div id="content" contenteditable="true"></div>
+        <button id="replyBtn">reply</button>
+      </div>
+    </div>
+
+    <hr style="width: 800px" />
+
+    <div id="reply_form" style="border: 0px">
+      <!-- <div class="reply">
+        <div class="writer" contenteditable="true"></div>
+        <div class="content_form" contenteditable="true">
+          <div id="content"></div>
+          <div class="btn_box">
+            <button>수정</button>
+            <button>삭제</button>
+          </div>
+        </div>
+      </div>
+
+    --></div>
+
+    <script>
+     
+
+      // reply버튼 눌렀을 때 기능
+      $("#replyBtn").on("click", function () {
+        // 수정버튼
+        let update_btn = $("<button>");
+        update_btn.html("수정");
+
+        // 삭제버튼
+        let delete_btn = $("<button>");
+        delete_btn.html("삭제");
+
+        // 완료버튼 숨겨놓기
+        let complete_btn = $("<button>");
+        complete_btn.css({ display: "none" });
+        complete_btn.html("완료");
+
+        // 취소버튼 숨겨놓기
+        let cancel_btn = $("<button>");
+        cancel_btn.css({ display: "none" });
+        cancel_btn.html("취소");
+
+        // 수정, 삭제, 완료, 취소 버튼 생기는 곳
+        let btn_box = $("<div>");
+        btn_box.addClass("btn_box");
+        btn_box.append(update_btn, delete_btn, complete_btn, cancel_btn); // 버튼박스에 버튼들 담기
+
+        // 내용 작성하는 곳
+        let content = $("<div>");
+        content.addClass("content"); // 클래스명 부여
+        content.attr("contenteditable", false); // div속성을 글 작성할 수 있는 속성으로 변경 => 밑에 추가되는 div라 수정못하게 false
+
+        content.html($("#content").html()); // content div에 body에서 작성된 내용 넣기
+
+        // 버튼, 작성된 내용 담는 div
+        let content_form = $("<div>");
+        content_form.addClass("content_form");
+        content_form.append(content, btn_box);
+
+        // 글 작성하는 div
+        let writer = $("<div>");
+        writer.addClass("writer");
+        writer.attr("contenteditable", false); // div속성을 글 작성할 수 있는 속성으로 변경 => 밑에 추가되는 div라 수정못하게 false
+
+        writer.html($("#writer").html()); // writer div에 body에서 작성된 작성자 이름 넣기
+
+        // reply 누르면 작성자, 작성한 내용
+        let reply = $("<div>");
+        reply.addClass("reply");
+        reply.append(writer, content_form);
+
+        $("#reply_form").append(reply);
+
+        // 수정버튼 눌렀을 때, "수정, 삭제" 안보이고, "완료, 취소" 보이게
+        update_btn.on("click", function () {
+          let first_content = $(this).parent().prev().html(); // 수정되어서 업데이트된 내용들 담아두기 
+
+          update_btn.css({ display: "none" });
+          delete_btn.css({ display: "none" });
+          complete_btn.css({ display: "block" });
+          cancel_btn.css({ display: "block" });
+
+          content.attr("contenteditable", true); // "수정" 눌렀을 때 내용 입력 가능하게
+
+          // "취소" 누르면 버튼 원래대로 돌아오기 + 내용도 원래대로
+          cancel_btn.on("click", function () {
+            complete_btn.css({ display: "none" });
+            cancel_btn.css({ display: "none" });
+            update_btn.css({ display: "block" });
+            delete_btn.css({ display: "block" });
+
+            $(this).parent().prev().html(first_content); // 취소했을 때 수정했던 내용으로 바뀌기
+
+          });
+        });
+
+        // 삭제버튼 눌렀을 때
+        delete_btn.on("click", function () {
+          $(this).closest(".reply").remove();
+        });
+
+        // 완료버튼 눌렀을 때
+        complete_btn.on("click", function () {
+          complete_btn.css({ display: "none" });
+          cancel_btn.css({ display: "none" });
+          update_btn.css({ display: "block" });
+          delete_btn.css({ display: "block" });
+          content.attr("contenteditable", false);
+        });
+
+        // 초기화 하기
+        $("#writer").html("");
+        $("#content").html("");
+      });
+    </script>
+  </body>
+</html>

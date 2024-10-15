@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+    <style>
+
+        div{
+            border: 1px solid black;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+
+
+<body>
+    
+    <!-- input창에 글씨 입력 후 Enter 치면 div박스에 들어가게 -->
+
+    <input type="text" id="txt">
+    <div id="box"></div>
+
+    <script>
+
+        let txt = document.getElementById("txt");
+        let box = document.getElementById("box");
+
+        txt.addEventListener("keyup", function(e){
+            if(e.key == "Enter"){
+                box.innerHTML = txt.value;
+                txt.value = "";
+            }
+        })
+        
+
+
+    </script>
+
+
+
+</body>
+</html>

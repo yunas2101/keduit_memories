@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.80.1/phaser.min.js"></script>
+    <!-- <script src="Exam01.js"></script>
+    <script src="Exam02.js"></script>
+    <script src="Exam04.js"></script> -->
+    <script src="GameStart.js"></script>
+    <script src="Exam03.js"></script>
+    <script src="GameOver.js"></script>
+    <script src="aa.js"></script>
+    <style>
+      #gamebox {
+        width: 1024px;
+        height: 640px;
+        border: 1px solid black;
+        margin: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="gamebox"></div>
+    <div id="timer" style="display: none"></div>
+    <div id="score" style="display: none"></div>
+
+    <script>
+      let config = {
+        type: Phaser.AUTO,
+        parent: "gamebox",
+        width: 1024,
+        height: 640,
+        physics: {
+          default: "arcade", // 게임엔진 종류 : 가장 기본엔진인 아케이드
+          arcade: {
+            // gravity: { y: 1000 },
+            debug: true,
+          },
+        },
+        // scene: Exam01,
+        // scene: [Exam02, GameOver],
+        // scene: [GameStart, Exam03, GameOver],
+        scene: [Exam03, GameOver],
+      };
+      let game = new Phaser.Game(config);
+    </script>
+  </body>
+</html>

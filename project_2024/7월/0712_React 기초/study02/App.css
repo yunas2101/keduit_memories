@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+}
+div {
+  border: 1px solid black;
+}
+
+.container {
+  width: 800px;
+  height: 600px;
+  margin: auto;
+}
+
+.container .header {
+  height: 20%;
+}
+.container .navi {
+  height: 8%;
+}
+.container .body {
+  height: 57%;
+  display: flex;
+}
+.container .body .section {
+  flex: 7;
+}
+.container .body .side {
+  flex: 3;
+}
+.container .footer {
+  height: 15%;
+}

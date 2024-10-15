@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  </head>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    /* div {
+      border: 1px solid black;
+    } */
+    .wrap {
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      border: 1px solid black;
+      width: 400px;
+      height: 500px;
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+      background-color: #f7e1da;
+      position: relative;
+    }
+
+    .container .output_cont {
+      border: 1px solid black;
+      flex: 9;
+      width: 100%;
+      margin-bottom: 5px;
+      padding: 5px;
+      border-radius: 5px;
+      overflow-y: auto;
+      background-color: #f5efef;
+    }
+    .container .output_cont .output_box {
+      display: flex;
+      align-items: flex-end;
+    }
+    .container .output_cont .output_box .chat {
+      width: fit-content;
+      max-width: calc(100% - 120px);
+      background-color: #f7e1da;
+      border-radius: 5px;
+      word-wrap: break-word;
+      padding: 5px;
+      margin: 5px;
+      font-size: small;
+    }
+    .container .output_cont .output_box .chat_date {
+      font-size: x-small;
+      margin-bottom: 5px;
+    }
+
+    .container .input_cont {
+      flex: 1.5;
+      display: flex;
+      overflow: auto;
+    }
+    .container .input_cont .send_txt {
+      border: 1px solid black;
+      flex: 8;
+      /* width: 100%; *** */
+      overflow: auto;
+      background-color: white;
+    }
+    [contenteditable="true"]:empty:before {
+      content: attr(placeholder);
+      color: gray;
+      font-size: small;
+      margin: 5px;
+    }
+    .container .input_cont button {
+      flex: 2;
+    }
+
+    /* 이모티콘 */
+    .econ_cont div {
+      border: 1px solid aquamarine;
+    }
+    .container .econ_cont {
+      border: 1px solid black;
+      width: 388px; /* 이게 맞아? *** */
+      /* height: 200px; */
+      background-color: #80808094;
+      position: absolute;
+      bottom: 15%;
+      display: flex;
+      flex-direction: column;
+      display: none;
+      transition: height 0.5s ease;
+    }
+
+    .container .econ_cont .econ_top {
+      flex: 1;
+      display: flex;
+    }
+    .container .econ_cont .econ_top .econ_title {
+      flex: 20;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: large;
+      font-weight: 500;
+    }
+    .container .econ_cont .econ_top #econ_close {
+      flex: 1;
+      background-color: #8a6457;
+      color: rgb(231, 231, 231);
+      font-size: large;
+      border-radius: 5px;
+    }
+    .container .econ_cont .econ_box {
+      flex: 5;
+      display: flex;
+      height: 100%;
+      /* overflow: hidden; */
+    }
+    .container .econ_cont .econ_box .econ_list {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+    }
+    .container .econ_cont .econ_box .econ_list .img_box {
+      width: 25%;
+      height: auto;
+    }
+    .econ_list .img_box img {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+
+  <body>
+    <div class="wrap">
+      <div class="container">
+        <div class="output_cont"></div>
+        <div class="input_cont">
+          <div
+            class="send_txt"
+            contenteditable="true"
+            placeholder="메세지를 입력하세요"
+          ></div>
+          <button id="econ_btn">Econ</button>
+        </div>
+        <div class="econ_cont">
+          <div class="econ_top">
+            <div class="econ_title">Emoticons</div>
+            <button id="econ_close">X</button>
+          </div>
+          <div class="econ_box">
+            <div class="econ_list">
+              <div class="img_box"><img src="img1.png" /></div>
+              <div class="img_box"><img src="img2.png" /></div>
+              <div class="img_box"><img src="img3.png" /></div>
+              <div class="img_box"><img src="img4.png" /></div>
+              <div class="img_box"><img src="img5.png" /></div>
+              <div class="img_box"><img src="img6.png" /></div>
+              <div class="img_box"><img src="img7.png" /></div>
+              <div class="img_box"><img src="img8.png" /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    let wrap = $(".wrap");
+    let output_cont = $(".output_cont");
+    let input_cont = $(".input_cont");
+    let send_txt = $(".send_txt");
+    let econ_btn = $("#econ_btn");
+
+    send_txt.on("keydown", function (e) {
+      if (e.key == "Enter") {
+        console.log("aa");
+        if (send_txt.html() == "") {
+          console.log("dd");
+          return false;
+        }
+        let output_box = $("<div>");
+        output_box.addClass("output_box");
+        let chat = $("<div>");
+        chat.addClass("chat");
+        let chat_date = $("<div>");
+        chat_date.addClass("chat_date");
+        let date = new Date();
+        let hour = ("0" + date.getHours()).slice(-2);
+        let min = ("0" + date.getMinutes()).slice(-2);
+
+        chat.append(send_txt.html());
+        chat_date.append(hour + ":" + min);
+        output_box.append(chat, chat_date);
+        output_cont.append(output_box);
+
+        return false;
+      }
+    });
+
+    econ_btn.on("click", function () {
+      console.log("aa");
+      let econ_box = $(".econ_box");
+      econ_box.slideToggle();
+    });
+  </script>
+</html>

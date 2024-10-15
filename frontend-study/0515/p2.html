@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  </head>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    div {
+      border: 1px solid black;
+    }
+    .container {
+      width: 300px;
+      height: 400px;
+      overflow: auto;
+    }
+    table {
+      width: 100%;
+      text-align: center;
+    }
+  </style>
+  <body>
+    <!-- 삭제할 내용 포함되면 삭제하기 -->
+    <div class="container">
+      제목: <input type="text" id="title" /> <br />
+      내용: <input type="text" id="content" /> <br />
+      작성자: <input type="text" id="writer" /> <br />
+      <button id="add_btn">테이블에 추가</button> <br />
+      <input type="text" id="del_title" placeholder="삭제할 대상 제목 입력" />
+      <button id="del_btn">삭제</button>
+
+      <thead>
+        <table border="1">
+          <tr>
+            <th>제목</th>
+            <th>내용</th>
+            <th>작성자</th>
+          </tr>
+        </table>
+      </thead>
+    </div>
+
+    <script>
+      console.log("ABC".includes("A"));
+
+      $("#del_btn").on("click", function(){
+          let del_title = $("#del_title").val();
+
+          if(del_title == ""){
+            alert("삭제할 대상을 입력하세요");
+            return;
+          }
+
+          $(".title").each(function(i,e){
+            if($(e).html().includes(del_title)){
+              // console.log($(e).parent().remove())
+              $(e).parent().remove();
+            }
+
+          })
+          $("#del_title").val("");
+        });
+
+      $("#add_btn").on("click", function () {
+        // console.log("aa")
+        let title = $("#title").val();
+        let content = $("#content").val();
+        let writer = $("#writer").val();
+
+
+        let tr = $("<tr>");
+
+        let td_title = $("<td>");
+        td_title.append(title);
+        td_title.addClass("title");
+
+        let td_content = $("<td>");
+        td_content.append(content);
+
+        let td_writer = $("<td>");
+        td_writer.append(writer);
+
+        tr.append(td_title, td_content, td_writer);
+
+        $("table").append(tr);
+
+        $("#title").val("");
+        $("#content").val("");
+        $("#writer").val("");
+        
+      });
+    </script>
+  </body>
+</html>

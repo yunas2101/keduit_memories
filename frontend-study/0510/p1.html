@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <fieldset>
+      <legend>Fruits</legend>
+      <div id="box"></div>
+    </fieldset>
+    <br />
+
+    <input type="text" placeholder="앞에 추가할 값" id="front" />
+    <button id="addFront">앞쪽에 추가</button>
+    <button id="delFront">앞에서 삭제</button> <br />
+
+    <input type="text" placeholder="뒤에 추가할 값" id="back" />
+    <button id="addBack">뒷쪽에 추가</button>
+    <button id="delBack">뒤에서 삭제</button>
+
+    <script>
+      // 1. 과일 목록 보여주기
+      // 2. 추가할 값 입력 받기
+      //   2-1. 앞에 추가할 값 / 뒤에 추가할 값
+      // 3. 버튼 눌러서 1번 과일 목록에 넣어주기
+      // 4. 업데이트 된 목록 보여주기
+
+      let arr = ["Orange"];
+
+      let front = document.getElementById("front");
+      let back = document.getElementById("back");
+
+      let addFront = document.getElementById("addFront");
+      let delFront = document.getElementById("delFront");
+      let addBack = document.getElementById("addBack");
+      let delBack = document.getElementById("delBack");
+
+      let fruitList = document.getElementById("box");
+
+      // 1. 과일 목록 보여주기
+      fruitList.innerHTML = arr;
+
+      // 앞쪽에 추가
+      addFront.addEventListener("click", function(){
+        if (front.value == "") {
+          // 입력창이 공백이면 경고창
+          alert("값을 입력하세요");
+        } else {
+          // 2~3. 추가할 값 입력받고, 버튼 눌리면 목록에 넣어주기
+          arr.unshift(front.value);
+
+          //4. 배열에 담긴 내용을 리스트에 업데이트 해주기
+          fruitList.innerHTML = arr;
+          front.value = "";
+        }
+      });
+      // 앞에서 삭제
+      // delFront.addEventListener("click", function(){
+      //   arr.shift();
+      //   fruitList.innerHTML = arr;
+      // });
+      
+      // 앞에서 삭제 *** 
+      delFront.addEventListener("click", function(){
+        if(fruitList.innerHTML != ""){ // 전체가 다 삭제됨. 
+          arr.shift();
+          fruitList.innerHTML = arr;
+        } else {
+          alert("데이터가 없습니다."); // div 박스에 데이터가 없다면 팝업창
+        }
+      });
+
+      // 뒷쪽에 추가
+      addBack.addEventListener("click", function(){
+        if (back.value == "") {
+          alert("값을 입력하세요.");
+        } else {
+          arr.push(back.value);
+          fruitList.innerHTML = arr;
+          back.value = "";
+        }
+      });
+
+      // 뒤에서 삭제
+      delBack.addEventListener("click", function(){
+        arr.pop();
+        fruitList.innerHTML = arr;
+      });
+
+
+      // Enter 앞쪽에 추가, Esc 앞에서 삭제 ***
+      front.addEventListener("keyup", function(e){
+        console.log(e.key); // 무슨 키 입력했는지 확인용도 
+
+        // Enter 눌렀을 때도 입력 
+        if (e.key == "Enter") {
+          arr.unshift(front.value);
+          fruitList.innerHTML = arr;
+          front.value = "";
+          
+          // esc 눌렀을 때 지워지게
+        } else if (e.key == "Escape"){
+          arr.shift();
+          fruitList.innerHTML = arr;
+        }
+      });
+      
+      
+      // Enter 뒷쪽에 추가, Esc 뒤에서 삭제
+      back.addEventListener("keyup", function(e){
+        if (e.key == "Enter") {
+          arr.push(back.value);
+          fruitList.innerHTML = arr;
+          back.value = "";
+
+        } else if (e.key == "Escape"){
+          arr.pop(back.value);
+          fruitList.innerHTML = arr;
+        }
+      });
+
+    </script>
+  </body>
+</html>

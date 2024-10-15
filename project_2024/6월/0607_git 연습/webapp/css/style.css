@@ -1,0 +1,248 @@
+:root {
+  --bg-white: #eeeeee;
+  --bg-black: #14213d;
+  --bg-transparent: transparent;
+
+  --color-white: #eeeeee;
+  --color-black: #14213d;
+  --bg-nav: #fca311;
+  --color-nav-icon: #14213d;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--bg-black);
+  color: var(--bg-white);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body.light {
+  background-color: var(--bg-white);
+  color: var(--bg-black);
+}
+
+ul,
+li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* container */
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* nav */
+nav {
+    flex: 1;
+}
+.navbar {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-nav);
+}
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 0 5%;
+}
+/* nav - icon */
+.navbar-nav i {
+    font-size: 30px;
+    color: var(--color-nav-icon);
+}
+/* nav - logo */
+.navbar-nav > li:first-child {
+    flex: 1;
+    display: flex;
+    justify-content: left;
+}
+/* nav - menu */
+.navbar-nav > li:last-child {
+    flex: 1;
+}
+.navbar-nav > li:last-child ul {
+    display: flex;
+    justify-content: right;
+}
+.navbar-nav > li:last-child ul li {
+    margin-left: 5%;
+}
+
+/* main */
+.main {
+    flex: 9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+}
+
+.list {
+    position: relative;
+    display: flex;
+    transform-style: preserve-3d;
+    perspective: 500px;
+}
+/* main - 5개 item */
+.item {
+    position: absolute;
+    background-color: var(--bg-nav);
+    border-radius: 40px;
+    top: calc(50% - 150px);
+    left: calc(50% - 100px);
+    width: 200px;
+    height: 300px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    transition: transform 0.5s, opacity 0.5s;
+    transform-style: preserve-3d;
+    transform-origin: bottom;
+    user-select: none;
+    -webkit-box-reflect: below 1px linear-gradient(transparent, transparent, #0002); 
+    background-image: url(../images/rocket.png);
+    background-position: center;
+    background-size: cover;
+    cursor: pointer;
+}
+/* main - item hover 효과 */
+.item:hover {
+    opacity: 0.9;
+    /* transform: scale(1.1); */
+}
+.list .item:nth-child(3):hover {
+    transform: scale(1.1);
+}
+
+/* main - item 위치 */
+.list .item:nth-child(1) {
+    transform: translate3d(-350px, 0, 0) scale(0.8) rotateY(25deg);
+    z-index: 1;
+}
+.list .item:nth-child(2) {
+    transform: translate3d(-180px, 0, 0) scale(0.9) rotateY(15deg);
+    z-index: 3;
+}
+.list .item:nth-child(3) {
+    transform: translate3d(0, 0, 0) scale(1) rotateY(0deg);
+    z-index: 4;
+}
+.list .item:nth-child(4) {
+    transform: translate3d(180px, 0, 0) scale(0.9) rotateY(-15deg);
+    z-index: 3;
+}
+.list .item:nth-child(5) {
+    transform: translate3d(350px, 0, 0) scale(0.8) rotateY(-25deg);
+    z-index: 3;
+}
+
+/* prev next 버튼 */
+.btn {
+    position: absolute;
+    bottom: 75px;
+    display: flex;
+    gap: 20px;
+}
+/* 기본 버튼 스타일 */
+.btn span {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border: 2px solid var(--color-white);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.5;
+    transition: all ease-in 0.2s;
+}
+/* 마우스 호버 시 투명도 조정 */
+.btn span:hover {
+    opacity: 1;
+}
+/* 버튼 내부 아이콘 스타일 */
+.btn span::before {
+    content: "";
+    position: absolute;
+    left: 20px;
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid var(--color-white);
+    border-left: 2px solid var(--color-white);
+    rotate: -45deg;
+}
+/* 다음 버튼의 내부 아이콘 스타일 */
+.btn span:last-child::before {
+    content: "";
+    position: absolute;
+    left: initial;
+    right: 20px;
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid var(--color-white);
+    border-left: 2px solid var(--color-white);
+    rotate: 135deg;
+}
+/* light 모드일 때 버튼 스타일 */
+.light .btn span {
+    border-color: var(--bg-black);
+    color: var(--bg-black);
+}
+/* light 모드일 때 버튼 내부 아이콘 스타일 */
+.light .btn span::before {
+    border-color: var(--bg-black);
+    color: var(--bg-black);
+}
+
+/* 라이트 다크 mode */
+/* 모드 전환 버튼 스타일 */
+#mode {
+    cursor: pointer;
+    position: absolute;
+    bottom: 10%;
+    right: 5%;
+    background-color: #fca311;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all ease-in 0.2s;
+    animation:ball 1s ease-in Infinite Alternate;
+}
+@keyframes ball {
+    0% {
+        bottom:10%;
+    }
+    95% {
+        width: 50px;
+    }
+    to {
+        bottom:13%;
+        width:50px;
+        height:60px
+    } 
+}
+
+/* 모드 전환 버튼 호버 시 투명도 조정 */
+#mode:hover {
+    opacity: 0.8;
+}
+
+/* 모드 전환 버튼 아이콘 스타일 */
+#mode i {
+    font-size: 30px;
+    color: var(--color-nav-icon);
+}

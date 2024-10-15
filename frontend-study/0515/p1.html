@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  </head>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    div {
+      border: 1px solid black;
+    }
+    .container {
+      width: 300px;
+      height: 400px;
+      overflow: auto;
+    }
+    table {
+      width: 100%;
+      text-align: center;
+    }
+  </style>
+  <body>
+    <!-- 테이블 안에 X버튼 -->
+    <div class="container">
+      제목: <input type="text" id="title" /> <br />
+      내용: <input type="text" id="content" /> <br />
+      작성자: <input type="text" id="writer" /> <br />
+      <button id="addBtn">테이블에 추가</button>
+
+      <thead>
+        <table border="1">
+          <tr>
+            <th>제목</th>
+            <th>내용</th>
+            <th>작성자</th>
+            <th>X</th>
+          </tr>
+        </table>
+      </thead>
+    </div>
+
+    <script>
+      $("table").on("click", ".del", function () {
+        console.log(this);
+        this.closest("tr").remove();
+      });
+
+      $("#addBtn").on("click", function () {
+        // console.log("aa")
+        let title = $("#title").val();
+        let content = $("#content").val();
+        let writer = $("#writer").val();
+
+        let tr = $("<tr>");
+
+        let td_title = $("<td>");
+        td_title.append(title);
+
+        let td_content = $("<td>");
+        td_content.append(content);
+
+        let td_writer = $("<td>");
+        td_writer.append(writer);
+
+        let td_delete = $("<td>");
+        let del_btn = $("<button>");
+        del_btn.addClass("del");
+        del_btn.html("X");
+        td_delete.append(del_btn);
+
+        // del_btn.on("click", function () {
+        //   console.log(this);
+        //   this.closest("tr").remove();
+        // });
+
+        tr.append(td_title, td_content, td_writer, td_delete);
+
+        $("table").append(tr);
+
+        $("#title").val("");
+        $("#content").val("");
+        $("#writer").val("");
+      });
+    </script>
+  </body>
+</html>

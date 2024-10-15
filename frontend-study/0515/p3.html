@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  </head>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    /* div {
+      border: 1px solid black;
+    } */
+    .container {
+      width: 700px;
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      margin: auto;
+    }
+    /* 작성자 css */
+    .writer_form {
+      flex: 1.5;
+      background-color: #c4b9aa;
+    }
+    .writer_form > input {
+      width: 200px;
+      height: 80%;
+      margin: 5px;
+    }
+    .content_form {
+      flex: 6;
+      display: flex;
+    }
+    .content_form #content {
+      flex: 8;
+      background-color: #f2e9e1;
+      max-height: 160px;
+      overflow-y: auto;
+    }
+    .content_form #reply_btn {
+      flex: 2;
+      background-color: #ecc0bf;
+      color: white;
+      border: none;
+    }
+
+    /* reply css */
+    .reply_box {
+      width: 700px;
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      margin: 6px auto;
+    }
+    .reply_writer {
+      flex: 1.5;
+      background-color: #c4b9aa;
+      display: flex;
+      align-items: center;
+    }
+    .content_form {
+      flex: 6;
+      display: flex;
+    }
+    .reply_content {
+      flex: 8;
+      background-color: #f2e9e1;
+      max-height: 160px;
+      overflow-y: auto;
+    }
+    .btn_box {
+      flex: 2;
+      background-color: #ecc0bf;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+    .btn_box > button {
+      height: 30px;
+    }
+  </style>
+
+  <body>
+    <!-- 댓글 창 만들기 -->
+    <div class="container">
+      <div class="writer_form">
+        <input type="text" id="writer" placeholder="작성자명을 입력하세요." />
+      </div>
+      <div class="content_form">
+        <div id="content" contenteditable="true"></div>
+        <button id="reply_btn">Reply</button>
+      </div>
+    </div>
+    <div class="reply_form" style="border: none">
+      <!-- <div class="writer"></div>
+      <div class="content_form">
+        <div id="content" contenteditable="true"></div>
+        <div>
+          <button>완료</button>
+          <button>삭제</button>
+        </div> -->
+    </div>
+
+    <script>
+      let writer = $("#writer");
+      let content = $("#content");
+      let reply_btn = $("#reply_btn");
+      let reply_form = $(".reply_form");
+
+      // reply 버튼 눌렀을 때 이벤트
+      reply_btn.on("click", function () {
+        let reply_box = $("<div>");
+        reply_box.addClass("reply_box");
+
+        let reply_writer = $("<div>");
+        reply_writer.addClass("reply_writer");
+        reply_writer.append(writer.val() + " 님의 글");
+
+        // 작성자가 작성한 내용, 버튼 담을 곳
+        let content_form = $("<div>");
+        content_form.addClass("content_form");
+
+        // 작성자가 작성한 내용
+        let reply_content = $("<div>");
+        reply_content.addClass("reply_content");
+        reply_content.append(content.html());
+
+        // "수정, 삭제, 완료, 취소" 버튼 담을 곳
+        let btn_box = $("<div>");
+        btn_box.addClass("btn_box");
+        let update_btn = $("<button>");
+        update_btn.html("수정");
+        let del_btn = $("<button>");
+        del_btn.html("삭제");
+        let complete_btn = $("<button>");
+        complete_btn.html("완료");
+        complete_btn.css("display", "none");
+        let cancel_btn = $("<button>");
+        cancel_btn.html("취소");
+        cancel_btn.css("display", "none");
+
+        btn_box.append(update_btn, del_btn, complete_btn, cancel_btn);
+        content_form.append(reply_content, btn_box);
+        reply_box.append(reply_writer, content_form);
+        reply_form.append(reply_box.append(reply_writer, content_form));
+
+        // 초기화
+        writer.val("");
+        content.html("");
+
+        // 삭제버튼
+        del_btn.on("click", function () {
+          $(this).closest(reply_box).remove();
+        });
+
+        // 수정버튼
+        update_btn.on("click", function () {
+          reply_content.attr("contenteditable", true);
+
+          update_btn.css("display", "none");
+          del_btn.css("display", "none");
+          complete_btn.css("display", "block");
+          cancel_btn.css("display", "block");
+
+          cancel_txt = $(this).closest(reply_box).find(reply_content).html();
+
+          // 취소버튼
+          cancel_btn.on("click", function () {
+            $(this).closest(reply_box).find(reply_content).html(cancel_txt);
+          });
+        });
+
+        // 완료버튼
+        complete_btn.on("click", function () {
+          reply_content.attr("contenteditable", false);
+          update_btn.css("display", "block");
+          del_btn.css("display", "block");
+          complete_btn.css("display", "none");
+          cancel_btn.css("display", "none");
+        });
+      });
+    </script>
+  </body>
+</html>
