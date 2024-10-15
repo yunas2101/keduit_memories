@@ -23,10 +23,8 @@ public class Practice_multiplication {
 			} else {
 				System.out.println("범위를 벗어났습니다.");
 			}
-		}
-				
+		}			
 	}
 	
-
 }
 
